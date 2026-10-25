@@ -325,5 +325,20 @@ document.querySelectorAll(".button_bar").forEach((button) => {
   });
 });
 
+document.querySelectorAll("a[data-panel]").forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const view = link.dataset.panel;
+    if (!view || (view !== "books" && view !== "chapters")) return;
+
+    event.preventDefault();
+    setShelfView(view);
+
+    const booksSectionEl = document.getElementById("kitaplar");
+    if (booksSectionEl) {
+      booksSectionEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+});
+
 renderBooks();
 setShelfView("books");
