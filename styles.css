@@ -726,6 +726,120 @@ a {
   color: #fff;
 }
 
+.stats-section {
+  padding-top: 48px;
+}
+
+.stats-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.stats-summary__card {
+  display: grid;
+  gap: 8px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(15, 61, 56, 0.08);
+  background: linear-gradient(135deg, #ffffff 0%, #f5f1ea 100%);
+  box-shadow: 0 12px 24px rgba(15, 61, 56, 0.04);
+}
+
+.stats-summary__label {
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stats-summary__card strong {
+  color: var(--primary);
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  letter-spacing: -0.04em;
+}
+
+.stats-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  margin: 0 0 18px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(15, 61, 56, 0.04);
+  border: 1px solid rgba(15, 61, 56, 0.06);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.stats-legend strong {
+  color: var(--primary);
+}
+
+.stats-table-wrap {
+  overflow-x: auto;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(15, 61, 56, 0.08);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+.stats-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.stats-table th,
+.stats-table td {
+  border-bottom: 1px solid rgba(15, 61, 56, 0.08);
+  padding: 10px 12px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.stats-table thead th {
+  background: linear-gradient(135deg, #f3efe9 0%, #edf4f1 100%);
+  color: var(--primary);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.stats-table thead th small {
+  display: block;
+  font-size: 0.7rem;
+  opacity: 0.85;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.stats-table tbody tr:nth-child(even) {
+  background: rgba(15, 61, 56, 0.02);
+}
+
+.stats-table tbody tr:hover {
+  background: rgba(15, 61, 56, 0.05);
+}
+
+.stats-table tbody tr:last-child td {
+  background: rgba(15, 61, 56, 0.06);
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.stats-total-label {
+  text-align: left !important;
+  font-weight: 700;
+}
+
+.stats-total {
+  font-weight: 800;
+  color: var(--primary);
+}
+
 .book-modal {
   position: fixed;
   inset: 0;
