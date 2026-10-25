@@ -787,7 +787,7 @@ a {
 
 .stats-table {
   width: 100%;
-  min-width: 720px;
+  min-width: 1200px;
   border-collapse: collapse;
   font-size: 0.92rem;
 }
@@ -803,9 +803,31 @@ a {
 .stats-table thead th {
   background: linear-gradient(135deg, #f3efe9 0%, #edf4f1 100%);
   color: var(--primary);
-  font-size: 0.75rem;
-  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
   text-transform: none;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.stats-table thead .stats-table__header-main th {
+  border-bottom: 1px solid rgba(15, 61, 56, 0.08);
+}
+
+.stats-table thead .stats-table__header-sub th {
+  background: #f9f6f1;
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.stats-table thead .stats-table__header-sub th small {
+  display: block;
+  font-size: 0.62rem;
+  opacity: 0.85;
+  letter-spacing: 0;
+  line-height: 1.3;
 }
 
 .stats-table thead th small {
