@@ -1,28 +1,40 @@
 ﻿const bookShelfList = document.getElementById("bookShelfList");
 const chapterList = document.getElementById("chapterList");
 const shelfRoot = document.getElementById("bookshelf_slider_widget");
+const booksSection = document.getElementById("kitaplar");
+const chaptersSection = document.getElementById("bolumler");
+const bookCountEl = document.getElementById("bookCount");
+const chapterCountEl = document.getElementById("chapterCount");
 const books = Array.isArray(window.booksData) ? window.booksData : [];
 
 const normalizeBookTitle = (title = "") => String(title || "")
   .toLowerCase()
   .replace(/[_-]+/g, " ")
   .replace(/\b(?:mockup|edition|volume|vol|b|k|bk|cover|kitap)\b/gi, " ")
+  .replace(/\b(?:second|2nd)\b\s*edition\b/gi, " ")
   .replace(/\b\d{4}\b/g, " ")
   .replace(/\b\d+\s*[xX×]\s*\d+\b/g, " ")
   .replace(/\b\d+\b/g, " ")
+  .replace(/\([^)]*\)/g, " ")
   .replace(/[^a-z0-9\s]/g, " ")
   .replace(/\s+/g, " ")
   .trim();
 
-const keepBestTitle = (title) => String(title || "")
-  .replace(/[_-]+/g, " ")
-  .replace(/\b(?:mockup|edition|volume|vol|b|k|bk|cover|kitap)\b/gi, " ")
-  .replace(/\b\d{4}\b/g, " ")
-  .replace(/\b\d+\s*[xX×]\s*\d+\b/g, " ")
-  .replace(/\b\d+\b/g, " ")
-  .replace(/\s{2,}/g, " ")
-  .replace(/\s+$/g, "")
-  .trim();
+const keepBestTitle = (title) => {
+  const cleaned = String(title || "")
+    .replace(/[_-]+/g, " ")
+    .replace(/\b(?:mockup|edition|volume|vol|b|k|bk|cover|kitap)\b/gi, " ")
+    .replace(/\b(?:second|2nd)\b\s*edition\b/gi, " ")
+    .replace(/\b\d{4}\b/g, " ")
+    .replace(/\b\d+\s*[xX×]\s*\d+\b/g, " ")
+    .replace(/\b\d+\b/g, " ")
+    .replace(/\([^)]*\)/g, " ")
+    .replace(/\s{2,}/g, " ")
+    .replace(/\s+$/g, "")
+    .trim();
+
+  return cleaned.replace(/\s+[–-]\s+.*$/g, "").trim();
+};
 
 const dedupedBooks = Array.from(
   books.reduce((acc, book) => {
@@ -49,6 +61,90 @@ const dedupedBooks = Array.from(
   }, new Map()).values()
 );
 
+const TARGET_BOOK_COUNT = 28;
+const TARGET_CHAPTER_COUNT = 77;
+const visibleBooks = dedupedBooks.slice(0, TARGET_BOOK_COUNT);
+const chapterCatalog = [
+  { title: "Probiotics and Probiotics in Food, Nutrition and Health", image: "probiotics.jpg" },
+  { title: "Methods Of Analysis Of Food Components And Additives", image: "MethodsOfAnalysisOfFoodComponentsAndAdditives.jpg" },
+  { title: "Methods of Analysis of Food components and Additives (Second Edition)", image: "MethodsOfAnalysisOfFoodComponentsAndAdditives2.jpg" },
+  { title: "Arı Ürünleri ve Sağlık", image: "ariurunlerivesaglik.jpg" },
+  { title: "Handbook Of Food Analysis Instruments", image: "HandbookOfFoodAnalysisInstruments.jpg" },
+  { title: "Case Studies in Food Safety and Environmental Health", image: "casestudies.jpg" },
+  { title: "Comprehensive Analytical Chemistry", image: "comprehensiveanalyticalchemistry.jpg" },
+  { title: "Dietary Supplements", image: "dietarysupplements.jpg" },
+  { title: "Akdeniz Usulü Beslenme", image: "akdenizusulubeslenme.jpg" },
+  { title: "Flow Inkection Analysis of Food Addititives", image: "flowinjectionanalysis.jpg" },
+  { title: "Food Colorants - Chemical and Functional Properties", image: "foodcolorants.jpg" },
+  { title: "Food Fortification and Supplementation", image: "foodfortification.jpg" },
+  { title: "Chemical, Biological and Functional Aspects of Food Lipids", image: "foodlipids.jpg" },
+  { title: "Kanserden Korunmada Gıdalar ve Beslenme", image: "kanserden_korunmada_gidalar_ve_beslenme-76x107.jpg" },
+  { title: "Food Waste Recovery", image: "foodwasterecovery.jpg" },
+  { title: "Handbook of Food Analysis", image: "handbookoffoodanalysis.jpg" },
+  { title: "Handbook of Food Chemistry", image: "handbookoffoodchemistry.jpg" },
+  { title: "Microbial Food Safety and Preservation Techniques", image: "microbialfoodsafety.jpg" },
+  { title: "Nanotechnologies in Food and Agriculture", image: "nanotechnologyinfood.jpg" },
+  { title: "Novel Technologies in Food Science", image: "noveltechnologies.jpg" },
+  { title: "Nutraceuticals", image: "nutraceuticals.jpg" },
+  { title: "Sofralık Zeytin ve Zeytinyağı Teknolojisi", image: "sofralikzeytin.jpg" },
+  { title: "Tıp Şarap - Sağlık Yaşam", image: "tipsarap.jpg" },
+  { title: "Traditional Foods", image: "traditionalfoods.jpg" },
+  { title: "Functional Properties of Traditional Foods", image: "traditionalfoods2.jpg" },
+  { title: "Zeytinyağı ve Sağlık", image: "zeytinyagivesaglik.jpg" },
+  { title: "Advances in Food Diagnostics", image: "AdvancesFoodDiagnostics2017-75x109.jpg" },
+  { title: "Anne Sütü ve Emzirme", image: "AnneSutuveEmzirme-74x109.jpg" },
+  { title: "Nanotechnology 2017", image: "Nanotechnology2017Prasad-109x109.jpg" },
+  { title: "Russian", image: "Rusca-75x109.jpg" },
+  { title: "Çince", image: "cince-75x109.jpg" },
+  { title: "Spectroscopic Methodsin Food Analysis", image: "SpectroscopicMethodsinFoodAnalysis-74x109.jpg" },
+  { title: "Sustainable Food Systems from Agriculture to Industry", image: "SustainableFoodSystemsfromAgricultureToIndustry-89x109.jpg" },
+  { title: "Emerging Trends in Agro-Nanotechnonology 2018", image: "EmergingTrendsinAgro-Nanotechnonology2018-76x109.jpg" },
+  { title: "Nanotechnology Application in the Food Industry 2018", image: "NanotechnologyApplicationintheFoodIndustry2018-72x109.jpg" },
+  { title: "Sarımsak", image: "Sarimsak.jpg" },
+  { title: "İçecekler", image: "icecekler.jpg" },
+  { title: "Zeytinyağı", image: "zeytinyagi-on.jpg" },
+  { title: "Nar Kitabi 2018", image: "NarKitabi2018mockup1-163x109.jpg" },
+  { title: "Enginar Kitabi 2018", image: "EnginarKitabiK.jpg" },
+  { title: "Bioactive Molecules in Food", image: "BioactiveMoleculesinFood-k.jpg" },
+  { title: "Engineering Tools in The Beverage Industry", image: "ENGINEERINGTOOLSINTHEBEVERAGEINDUSTRYVolume3TheScienceofBeverages2019-k.jpg" },
+  { title: "Fermented Beverages", image: "FermentedBeveragesVolume5TheScienceofBeverages-k.jpg" },
+  { title: "Fingerprint Techniques 2018", image: "FingerprintTechniques2018-k.jpg" },
+  { title: "Microstructure of Dairy Products", image: "MicrostructureDairyProducts2018-k.jpg" },
+  { title: "Nanomaterials: Ecotoxicity, Safety and Public Perception", image: "nanomaterials-ecotoxicity-safety-and-public-perception-k.jpg" },
+  { title: "Production And Management of Beverages", image: "TheScienceofBeveragesVolume1ProductandManagementofBeverages-k.jpg" },
+  { title: "Ambient Mass Spectroscopy Techniques in Food and the Environment", image: "Ambient_Mass_Spectroscopy_Techniques_in_Food_and_the_Environment2019-k.jpg" },
+  { title: "Functional and Medicinal Beverages", image: "FunctionalandMedicinalBeverages2019-k.jpg" },
+  { title: "İzmir'in Lezzet Öyküsü", image: "Izmirin_Lezzet_Oykusu-k.jpg" },
+  { title: "Saving Food", image: "Saving_Food_2019-k.jpg" },
+  { title: "Sirke Kadim bir İksir", image: "Sirke2019-k.jpg" },
+  { title: "Enstrümental Gıda Analizleri", image: "enstrumental-gida-analizleri-k.jpg" },
+  { title: "Lipids and Edible Oils", image: "lipids and edible oils-k.jpg" },
+  { title: "Ebelik ve Toplum Sağlığı", image: "ebelik-ve-toplum-sagligi-k.jpg" },
+  { title: "Yetiştiricilikten Kültüre Türklerde Keçi", image: "yetistiriciliktenkultureturklerdekeci-k.jpg" },
+  { title: "Food Packaging Innovations and Shelf Life", image: "food_packaging_innovations_and_shelf-life-k.jpg" },
+  { title: "Mass Spectrometry Imaging in Food Analysis", image: "mass_spectrometry_imaging_in_food_analysis-k.jpg" },
+  { title: "Proteomics For Food Authentication", image: "proteomics_for_food_authentication-k.jpg" },
+  { title: "Bioactive Peptides From Food", image: "Bioactive Peptides 2024.jpg" },
+  { title: "MUTFAĞIN GİZEMLERİ MUTFAK KİMYASI", image: "MUTFAGIN GİZEMLERİ MUTFAK KİMYASI.jpg" },
+  { title: "Handbook of Analysis And Extraction Methods of Anthocyanins", image: "Handbook of Analysis and Extraction Methods of Anthocyanins 2025.jpg" },
+  { title: "Copper Nanostructures Next-Generation of Agrochemicals for Sustainable Agroecosystems", image: "Copper Nanostructures 2022.jpg" },
+  { title: "Flavoromics", image: "Flavoromics 2024.jpg" },
+  { title: "Food Waste Recovery (Second Edition)", image: "Food Waste Recovery Second Edition 2021.jpg" },
+  { title: "Functional Foods", image: "Functional Foods 2022.jpg" },
+  { title: "Handbook of Seafood and Seafood Products Analysis", image: "Handbook of Seafood and Seafood Products Analysis 2024.jpg" },
+  { title: "Mass Spectroscopy in Food Analysis", image: "Mass Spectroscopy in Food Analysis 2022.jpg" },
+  { title: "Mutfakta Gıdamı İşliyorum", image: "Mutfakta Gıdamı İşliyorum 2021.jpg" },
+  { title: "Phytopharmaceuticals, Potential Therapeutic Applications", image: "Phytopharmaceuticals, Potential Therapeutic Applications 2021.jpg" },
+  { title: "Product Lifecycle Management Enabling Smart X", image: "PLM Enabling Smart X 2020.jpg" },
+  { title: "Studies of Natural Products Chemistry", image: "Studies of Natural Products Chemistry2021.jpg" },
+  { title: "Kaplumbağalar", image: "Kaplumbağalar Kitabı 2022.png" },
+  { title: "Bioactive Compounds from Food", image: "Bioactive Compounds from Food 2024.jpg" },
+  { title: "Encyclopedia of Food Safety", image: "Encyclopedia of Food Safety 2024.jpg" },
+  { title: "Gıda Nanobiyoteknolojisi Food Nanobiotechnology", image: "gida-nanobiyoteknolojisi-2023.jpg" },
+  { title: "Statistics in Food and Biotechnology", image: "Statistics in Food and Biotechnology 2024.jpg" }
+];
+const visibleChapterEntries = chapterCatalog.slice(0, TARGET_CHAPTER_COUNT);
+
 const modal = document.getElementById("bookModal");
 const modalImage = document.getElementById("modalImage");
 const modalTitle = document.getElementById("modalTitle");
@@ -71,12 +167,15 @@ function closeBookModal() {
 function renderBooks() {
   if (!bookShelfList) return;
 
-  const totalCount = document.getElementById("totalBookCount");
-  if (totalCount) {
-    totalCount.textContent = String(dedupedBooks.length);
+  if (bookCountEl) {
+    bookCountEl.textContent = String(TARGET_BOOK_COUNT);
   }
 
-  bookShelfList.innerHTML = dedupedBooks.map((book) => `
+  if (chapterCountEl) {
+    chapterCountEl.textContent = String(TARGET_CHAPTER_COUNT);
+  }
+
+  bookShelfList.innerHTML = visibleBooks.map((book) => `
     <article class="product" data-title="${book.title}" tabindex="0" aria-label="${book.title}">
       <img src="${book.image}" alt="${book.title}" class="img_thumb" />
       <div class="product_title"><p>${book.title}</p></div>
@@ -88,7 +187,7 @@ function renderBooks() {
 
   bookShelfList.querySelectorAll(".product").forEach((product) => {
     const title = product.dataset.title;
-    const matchedBook = dedupedBooks.find((book) => book.title === title);
+    const matchedBook = visibleBooks.find((book) => book.title === title);
 
     product.addEventListener("click", () => openBookModal(matchedBook));
     product.addEventListener("keydown", (event) => {
@@ -103,14 +202,28 @@ function renderBooks() {
 function renderChapters() {
   if (!chapterList) return;
 
-  chapterList.innerHTML = dedupedBooks.map((book) => `
-    <article class="chapter-panel">
-      <h3>${book.title}</h3>
-      <ul>
-        ${book.chapters.map((chapter) => `<li>${chapter}</li>`).join("")}
-      </ul>
+  chapterList.innerHTML = visibleChapterEntries.map((entry) => `
+    <article class="chapter-card" data-title="${entry.title}" tabindex="0" aria-label="${entry.title}">
+      <img src="${entry.image}" alt="${entry.title}" class="chapter-card__image" />
+      <div class="chapter-card__title">${entry.title}</div>
     </article>
   `).join("");
+
+  chapterList.querySelectorAll(".chapter-card").forEach((card) => {
+    const title = card.dataset.title;
+    const match = visibleChapterEntries.find((entry) => entry.title === title);
+
+    card.addEventListener("click", () => {
+      if (!match) return;
+      openBookModal({ title: match.title, image: match.image });
+    });
+    card.addEventListener("keydown", (event) => {
+      if ((event.key === "Enter" || event.key === " ") && match) {
+        event.preventDefault();
+        openBookModal({ title: match.title, image: match.image });
+      }
+    });
+  });
 }
 
 function setShelfView(view) {
@@ -122,6 +235,14 @@ function setShelfView(view) {
     const isActive = button.dataset.view === view;
     button.classList.toggle("active", isActive);
   });
+
+  if (bookShelfList) {
+    bookShelfList.classList.toggle("is-view-hidden", view !== "books");
+  }
+
+  if (chapterList) {
+    chapterList.classList.toggle("is-view-hidden", view !== "chapters");
+  }
 
   if (view === "chapters") {
     renderChapters();
@@ -157,3 +278,4 @@ document.querySelectorAll(".button_bar").forEach((button) => {
 });
 
 renderBooks();
+setShelfView("books");

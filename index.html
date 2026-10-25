@@ -136,9 +136,12 @@
             <span class="eyebrow">Yayınlar</span>
             <h2>Kitaplar ve akademik eserler</h2>
           </div>
-          <div class="bookshelf-meta">
-            <span id="totalBookCount">0</span>
-            <small>eser</small>
+          <div class="bookshelf-meta" aria-live="polite">
+            <span id="bookCount">0</span>
+            <small>kitap</small>
+            <span class="meta-divider">|</span>
+            <span id="chapterCount">0</span>
+            <small>bölüm</small>
           </div>
         </div>
 
@@ -154,6 +157,7 @@
               <div class="panel_items">
                 <div class="slide_animate">
                   <div class="products_box" id="bookShelfList" aria-live="polite"></div>
+                  <div id="chapterList" class="chapter-grid is-view-hidden" aria-live="polite"></div>
                 </div>
               </div>
             </div>
@@ -171,15 +175,6 @@
             </div>
           </div>
         </div>
-      </section>
-
-      <section class="section" id="bolumler">
-        <div class="section-header">
-          <span class="eyebrow">Bölüm içeriği</span>
-          <h2>Kitap bölümleri ve içerik yapısı</h2>
-        </div>
-
-        <div id="chapterList" class="chapter-grid"></div>
       </section>
     </main>
 
