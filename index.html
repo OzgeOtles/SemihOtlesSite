@@ -24,6 +24,7 @@
           <a href="#arastirma">Araştırma</a>
           <a href="#kitaplar" data-panel="books">Kitaplar</a>
           <a href="#bolumler" data-panel="chapters">Bölümler</a>
+          <a href="#yayin-listesi">Yayın Arşivi</a>
         </nav>
       </div>
     </header>
@@ -176,6 +177,17 @@
           </div>
         </div>
       </section>
+
+      <section class="section publication-section" id="yayin-listesi">
+        <div class="section-header publication-header">
+          <div>
+            <span class="eyebrow">Yayın arşivi</span>
+            <h2>PROF. DR. SEMİH ÖTLEŞ'İN YAYIN LİSTESİ</h2>
+          </div>
+        </div>
+
+        <div class="publication-archive" id="publicationArchive" aria-live="polite"></div>
+      </section>
     </main>
 
     <div id="bookModal" class="book-modal" aria-hidden="true">
@@ -189,5 +201,159 @@
 
     <script src="books-data.js"></script>
     <script src="app.js"></script>
+    <script>
+      (() => {
+        const archiveEl = document.getElementById("publicationArchive");
+
+        function escapeHtml(value) {
+          return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/\"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+        }
+
+        function formatItem(itemText) {
+          const match = itemText.match(/^((?:A|B)\.[A-ZİÖÜÇŞĞ]+\.?\d*\.?|C\.K\.\d+\.)\s*(.*)$/i);
+          if (!match) {
+            return escapeHtml(itemText);
+          }
+
+          const code = match[1];
+          const rest = match[2].trim();
+          return `<span class="code">${escapeHtml(code)}</span> ${escapeHtml(rest)}`;
+        }
+
+        function parsePublicationSource(rawText) {
+          const lines = rawText
+            .replace(/\r/g, "")
+            .split("\n")
+            .map((line) => line.trim())
+            .filter(Boolean);
+
+          const sections = [];
+          let currentSection = null;
+          let currentSubgroup = null;
+          let currentItemBuffer = [];
+
+          const flushCurrentItem = () => {
+            if (!currentSubgroup || currentItemBuffer.length === 0) return;
+            const itemText = currentItemBuffer.join(" ").replace(/\s+/g, " ").trim();
+            if (itemText) {
+              currentSubgroup.items.push(itemText);
+            }
+            currentItemBuffer = [];
+          };
+
+          const startSection = (title) => {
+            currentSection = { title, subsections: [] };
+            sections.push(currentSection);
+            currentSubgroup = null;
+          };
+
+          const startSubgroup = (title) => {
+            if (!currentSection) {
+              startSection("A. ARAŞTIRMALAR");
+            }
+            flushCurrentItem();
+            currentSubgroup = { title, items: [] };
+            currentSection.subsections.push(currentSubgroup);
+          };
+
+          for (const line of lines) {
+            if (/^PROF\.?DR/i.test(line)) continue;
+
+            if (/^A\.\s*ARAŞTIRMALAR$/i.test(line)) {
+              startSection("A. ARAŞTIRMALAR");
+              continue;
+            }
+
+            if (/^B\.\s*DERLEMELER$/i.test(line)) {
+              startSection("B. DERLEMELER");
+              continue;
+            }
+
+            if (/^C\.?K\.?\s*.*KİTAPLAR.*BÖLÜMLERİ/i.test(line)) {
+              startSection("C.K. KİTAPLAR VE BÖLÜMLERİ");
+              continue;
+            }
+
+            const isSubgroupHeading = /^(?:A|B)\.[A-ZİÖÜÇŞĞ]+\.(?:\s+[A-ZİÖÜÇŞĞ].*|[A-ZİÖÜÇŞĞ].*)$/i.test(line) && !/^(?:A|B)\.[A-ZİÖÜÇŞĞ]+\.\d+\./i.test(line);
+            if (isSubgroupHeading) {
+              startSubgroup(line.replace(/\s+/g, " ").trim());
+              continue;
+            }
+
+            const isItemStart = /^(?:A|B)\.[A-ZİÖÜÇŞĞ]+\.\d+\.|^C\.K\.\d+\./i.test(line);
+            if (isItemStart) {
+              if (!currentSection) {
+                startSection("A. ARAŞTIRMALAR");
+              }
+              if (!currentSubgroup) {
+                startSubgroup(currentSection.title);
+              }
+              flushCurrentItem();
+              currentItemBuffer = [line];
+              continue;
+            }
+
+            if (currentItemBuffer.length > 0) {
+              currentItemBuffer.push(line);
+            }
+          }
+
+          flushCurrentItem();
+          return sections.filter((section) => section.title || section.subsections.length > 0);
+        }
+
+        function renderArchiveMarkup(sections) {
+          if (!sections.length) {
+            return '<div class="publication-item">Yayın verisi bulunamadı.</div>';
+          }
+
+          return sections.map((section) => {
+            const content = section.subsections.length
+              ? section.subsections
+                  .map((subgroup) => {
+                    const itemsMarkup = subgroup.items
+                      .map((item) => `<div class="publication-item">${formatItem(item)}</div>`)
+                      .join("");
+
+                    return `
+                      <details class="publication-subgroup">
+                        <summary>${escapeHtml(subgroup.title)}</summary>
+                        <div class="publication-list">${itemsMarkup}</div>
+                      </details>
+                    `;
+                  })
+                  .join("")
+              : "";
+
+            return `
+              <details class="publication-group">
+                <summary>${escapeHtml(section.title)}</summary>
+                <div class="publication-group__body">${content}</div>
+              </details>
+            `;
+          }).join("");
+        }
+
+        fetch("js/yayinlar")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Yayın dosyası yüklenemedi.");
+            }
+            return response.text();
+          })
+          .then((text) => {
+            const sections = parsePublicationSource(text);
+            archiveEl.innerHTML = renderArchiveMarkup(sections);
+          })
+          .catch(() => {
+            archiveEl.innerHTML = '<div class="publication-item">Yayın arşivi dosyası yüklenemedi. Lütfen sayfayı bir sunucu üzerinden açın.</div>';
+          });
+      })();
+    </script>
   </body>
 </html>

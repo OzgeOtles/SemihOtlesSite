@@ -634,6 +634,98 @@ a {
   word-wrap: break-word;
 }
 
+.publication-section {
+  padding-top: 54px;
+}
+
+.publication-header {
+  align-items: flex-end;
+  gap: 18px;
+}
+
+.publication-archive {
+  display: grid;
+  gap: 18px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 22px;
+  box-shadow: var(--shadow);
+}
+
+.publication-group,
+.publication-subgroup {
+  width: 100%;
+  border: 1px solid rgba(15, 61, 56, 0.08);
+  border-radius: 18px;
+  background: rgba(248, 245, 241, 0.95);
+  overflow: hidden;
+}
+
+.publication-group > summary,
+.publication-subgroup > summary {
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+  padding: 14px 18px;
+  font-weight: 700;
+  color: var(--primary);
+  background: linear-gradient(135deg, #f8f4ef 0%, #eef4f2 100%);
+  border-bottom: 1px solid rgba(15, 61, 56, 0.08);
+}
+
+.publication-group > summary::-webkit-details-marker,
+.publication-subgroup > summary::-webkit-details-marker {
+  display: none;
+}
+
+.publication-group > summary {
+  font-size: clamp(1.05rem, 1.8vw, 1.5rem);
+  letter-spacing: 0.02em;
+}
+
+.publication-subgroup > summary {
+  padding-left: 16px;
+  font-size: 0.98rem;
+  background: rgba(185, 128, 58, 0.08);
+  border-left: 4px solid var(--accent);
+}
+
+.publication-group__body,
+.publication-list {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+}
+
+.publication-item {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(15, 61, 56, 0.08);
+  background: rgba(255, 255, 255, 0.82);
+  line-height: 1.7;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.publication-item .code {
+  display: inline-block;
+  min-width: 74px;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.publication-group[open] > summary,
+.publication-subgroup[open] > summary {
+  background: linear-gradient(135deg, var(--primary), #2b584f);
+  color: #fff;
+}
+
+.publication-subgroup[open] > summary {
+  background: rgba(185, 128, 58, 0.9);
+  color: #fff;
+}
+
 .book-modal {
   position: fixed;
   inset: 0;
