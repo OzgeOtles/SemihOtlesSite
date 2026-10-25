@@ -64,6 +64,51 @@ const dedupedBooks = Array.from(
 const TARGET_BOOK_COUNT = 28;
 const TARGET_CHAPTER_COUNT = 77;
 const visibleBooks = dedupedBooks.slice(0, TARGET_BOOK_COUNT);
+
+const normalizeAssetName = (value = "") => String(value)
+  .toLowerCase()
+  .normalize("NFD")
+  .replace(/[\u0300-\u036f]/g, "")
+  .replace(/[^a-z0-9]+/g, "")
+  .trim();
+
+const resolveChapterImage = (imageValue = "") => {
+  const raw = String(imageValue || "").trim();
+  if (!raw) return "books/placeholder.jpg";
+
+  const cleaned = raw.replace(/^\.\//, "").replace(/^books\//, "");
+  const aliasMap = new Map([
+    [normalizeAssetName("nanomaterials-ecotoxicity-safety-and-public-perception-k.jpg"), "nanomaterials-ecotoxicity-safety-and-public-perception-k.jpg"],
+    [normalizeAssetName("enstrumental-gida-analizleri-k.jpg"), "enstrumental-gida-analizleri-k.jpg"],
+    [normalizeAssetName("lipids and edible oils-k.jpg"), "lipids and edible oils-k.jpg"],
+    [normalizeAssetName("Bioactive Peptides 2024.jpg"), "Bioactive Peptides 2024.jpg"],
+    [normalizeAssetName("MUTFAGIN GİZEMLERİ MUTFAK KİMYASI.jpg"), "MUTFAGIN GİZEMLERİ MUTFAK KİMYASI.jpg"],
+    [normalizeAssetName("Handbook of Analysis and Extraction Methods of Anthocyanins 2025.jpg"), "Handbook of Analysis and Extraction Methods of Anthocyanins 2025.jpg"],
+    [normalizeAssetName("Copper Nanostructures 2022.jpg"), "Copper Nanostructures 2022.jpg"],
+    [normalizeAssetName("Flavoromics 2024.jpg"), "Flavoromics 2024.jpg"],
+    [normalizeAssetName("Food Waste Recovery Second Edition 2021.jpg"), "Food Waste Recovery Second Edition 2021.jpg"],
+    [normalizeAssetName("Functional Foods 2022.jpg"), "Functional Foods 2022.jpg"],
+    [normalizeAssetName("Handbook of Seafood and Seafood Products Analysis 2024.jpg"), "Handbook of Seafood and Seafood Products Analysis 2024.jpg"],
+    [normalizeAssetName("Mass Spectroscopy in Food Analysis 2022.jpg"), "Mass Spectroscopy in Food Analysis 2022.jpg"],
+    [normalizeAssetName("Mutfakta Gıdamı İşliyorum 2021.jpg"), "Mutfakta Gıdamı İşliyorum 2021.jpg"],
+    [normalizeAssetName("Phytopharmaceuticals, Potential Therapeutic Applications 2021.jpg"), "Phytopharmaceuticals, Potential Therapeutic Applications 2021.jpg"],
+    [normalizeAssetName("PLM Enabling Smart X 2020.jpg"), "PLM Enabling Smart X 2020.jpg"],
+    [normalizeAssetName("Studies of Natural Products Chemistry2021.jpg"), "Studies of Natural Products Chemistry2021.jpg"],
+    [normalizeAssetName("Kaplumbağalar Kitabı 2022.png"), "Kaplumbağalar Kitabı 2022.png"],
+    [normalizeAssetName("Bioactive Compounds from Food 2024.jpg"), "Bioactive Compounds from Food 2024.jpg"],
+    [normalizeAssetName("Encyclopedia of Food Safety 2024.jpg"), "Encyclopedia of Food Safety 2024.jpg"],
+    [normalizeAssetName("gida-nanobiyoteknolojisi-2023.jpg"), "gida-nanobiyoteknolojisi-2023.jpg"],
+    [normalizeAssetName("Statistics in Food and Biotechnology 2024.jpg"), "Statistics in Food and Biotechnology 2024.jpg"]
+  ]);
+
+  const normalizedInput = normalizeAssetName(cleaned);
+  const exactAlias = aliasMap.get(normalizedInput);
+  if (exactAlias) return `books/${exactAlias}`;
+
+  const finalPath = cleaned.startsWith("books/") ? cleaned : `books/${cleaned}`;
+  return finalPath;
+};
+
 const chapterCatalog = [
   { title: "Probiotics and Probiotics in Food, Nutrition and Health", image: "probiotics.jpg" },
   { title: "Methods Of Analysis Of Food Components And Additives", image: "MethodsOfAnalysisOfFoodComponentsAndAdditives.jpg" },
@@ -202,12 +247,15 @@ function renderBooks() {
 function renderChapters() {
   if (!chapterList) return;
 
-  chapterList.innerHTML = visibleChapterEntries.map((entry) => `
-    <article class="chapter-card" data-title="${entry.title}" tabindex="0" aria-label="${entry.title}">
-      <img src="${entry.image}" alt="${entry.title}" class="chapter-card__image" />
-      <div class="chapter-card__title">${entry.title}</div>
-    </article>
-  `).join("");
+  chapterList.innerHTML = visibleChapterEntries.map((entry) => {
+    const resolvedImage = resolveChapterImage(entry.image);
+    return `
+      <article class="chapter-card" data-title="${entry.title}" tabindex="0" aria-label="${entry.title}">
+        <img src="${resolvedImage}" alt="${entry.title}" class="chapter-card__image" />
+        <div class="chapter-card__title">${entry.title}</div>
+      </article>
+    `;
+  }).join("");
 
   chapterList.querySelectorAll(".chapter-card").forEach((card) => {
     const title = card.dataset.title;
@@ -215,12 +263,12 @@ function renderChapters() {
 
     card.addEventListener("click", () => {
       if (!match) return;
-      openBookModal({ title: match.title, image: match.image });
+      openBookModal({ title: match.title, image: resolveChapterImage(match.image) });
     });
     card.addEventListener("keydown", (event) => {
       if ((event.key === "Enter" || event.key === " ") && match) {
         event.preventDefault();
-        openBookModal({ title: match.title, image: match.image });
+        openBookModal({ title: match.title, image: resolveChapterImage(match.image) });
       }
     });
   });
