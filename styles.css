@@ -1104,3 +1104,37 @@ html { scroll-padding-top:110px; }
   .timeline-controls { width:100%; grid-template-columns:auto minmax(0,1fr); }
   .timeline-controls select { width:100%; min-width:0; }
 }
+
+/* A quieter mobile type scale; keep reading text and touch controls comfortable. */
+@media (max-width:700px) {
+  body { font-size:.9375rem; }
+  .hero-copy h1 { font-size:clamp(1.7rem,6.5vw,2rem); line-height:1.18; letter-spacing:-.035em; margin-bottom:14px; }
+  .hero-copy p { font-size:.9375rem; line-height:1.7; }
+  .section-header h2 { font-size:clamp(1.35rem,5.5vw,1.65rem); line-height:1.25; letter-spacing:-.035em; }
+  .section-header { margin-bottom:16px; }
+  .eyebrow { font-size:.68rem; letter-spacing:.09em; margin-bottom:8px; }
+  .timeline-content h3,.stats-panel h3 { font-size:1rem; line-height:1.35; }
+  .timeline-content p,.publication-item { font-size:.875rem; line-height:1.65; }
+  .timeline-year { font-size:.8125rem; }
+  .quick-facts { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:20px; }
+  .quick-facts div { padding:14px; }
+  .quick-facts strong { font-size:1.4rem; }
+  .profile-list strong { font-size:.9375rem; }
+  .profile-list li { gap:5px; padding:10px 12px; }
+  .profile-links a { font-size:.875rem; min-height:44px; }
+  .pill-grid { gap:8px; }
+  .pill-grid span { font-size:.8125rem; padding:8px 12px; }
+  .selected_title { font-size:1rem; line-height:1.4; }
+  .bookshelf-meta span { font-size:1.4rem; }
+  .bookshelf-meta small { font-size:.68rem; }
+  .publication-group > summary { font-size:.9375rem; line-height:1.4; padding:14px; }
+  .publication-subgroup > summary { font-size:.875rem; line-height:1.45; }
+  .publication-item .code { min-width:0; margin-right:6px; }
+  .stats-intro { font-size:.875rem; line-height:1.65; }
+  .stats-summary__card > span { font-size:.8125rem; }
+  .stats-summary__card > strong { font-size:1.5rem; line-height:1.2; }
+  .stats-summary__card > small { font-size:.75rem; }
+  .stats-panel p,.stats-bar,.stats-details summary { font-size:.8125rem; line-height:1.5; }
+  .chart-key { font-size:.75rem; gap:10px 14px; }
+  .stats-panel select,.dashboard-controls select,.pagination select { font-size:1rem; }
+}
