@@ -787,7 +787,7 @@ a {
 
 .stats-table {
   width: 100%;
-  min-width: 1200px;
+  min-width: 800px;
   border-collapse: collapse;
   font-size: 0.92rem;
 }
@@ -846,11 +846,39 @@ a {
   background: rgba(15, 61, 56, 0.05);
 }
 
-.stats-table tbody tr:last-child td {
+.stats-table tfoot td {
   background: rgba(15, 61, 56, 0.06);
   font-weight: 800;
   color: var(--primary);
 }
+
+.stats-intro { color: var(--muted); line-height: 1.7; }
+.stats-summary__card small, .stats-source { color: var(--muted); line-height: 1.6; }
+.stats-summary__card:first-child { background: var(--primary); color: white; }
+.stats-summary__card:first-child strong, .stats-summary__card:first-child small { color: white; }
+.stats-note { padding: 18px 22px; border-left: 3px solid var(--accent); background: #f6eddf; line-height: 1.7; border-radius: 0 14px 14px 0; margin-bottom: 24px; }
+.stats-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.stats-panel { min-width: 0; background: white; border: 1px solid var(--line); border-radius: 20px; padding: 24px; }
+.stats-panel h3 { margin: 0; font-size: 1.15rem; }
+.stats-panel p { color: var(--muted); font-size: .85rem; }
+.stats-bars { display: grid; gap: 25px; margin-top: 30px; }
+.stats-bar > div:first-child { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 10px; }
+.stats-track { height: 9px; background: #edf2ef; border-radius: 8px; overflow: hidden; }
+.stats-track i { display: block; height: 100%; background: var(--primary); border-radius: inherit; }
+.stats-panel-heading { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.stats-panel label { font-size: .8rem; display: grid; gap: 6px; }
+.stats-panel select { min-height: 44px; padding: 8px; border: 1px solid var(--line); background: white; border-radius: 8px; color: var(--primary); }
+.stats-years { max-height: 290px; overflow-y: auto; padding-right: 12px; margin-top: 16px; }
+.stats-year { display: grid; grid-template-columns: 42px 1fr 30px; gap: 12px; align-items: center; min-height: 32px; font-size: .85rem; font-variant-numeric: tabular-nums; }
+.stats-year strong { text-align: right; }
+.stats-details { margin-top: 24px; }
+.stats-details summary { cursor: pointer; padding: 18px 0; font-weight: 600; color: var(--primary); }
+.stats-details p { line-height: 1.6; color: var(--muted); }
+.stats-table caption { text-align: left; padding: 16px; }
+.stats-table th:first-child { position: sticky; left: 0; background: #edf4f1; }
+.stats-source { font-size: .8rem; margin-top: 20px; }
+:focus-visible { outline: 3px solid #b9803a; outline-offset: 3px; }
+@media (max-width: 700px) { .stats-panels { grid-template-columns: 1fr; } .stats-panel { padding: 18px; } }
 
 .stats-total-label {
   text-align: left !important;
