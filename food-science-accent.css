@@ -1,0 +1,21 @@
+.research-overview { position:relative; display:grid; grid-template-columns:minmax(0,1fr) 224px; align-items:center; gap:24px; }
+.research-overview > div { min-width:0; }
+.food-accent { width:224px; margin:0; pointer-events:none; user-select:none; }
+.food-accent__svg { display:block; width:100%; height:210px; }
+@media(max-width:980px) {
+  .research-overview { grid-template-columns:minmax(0,1fr) 184px; gap:16px; }
+  .food-accent { width:184px; }
+  .food-accent__svg { height:176px; }
+}
+@media(max-width:700px) {
+  .research-overview { display:block; }
+  .research-overview .section-header { padding-right:116px; min-height:100px; }
+  .food-accent { position:absolute; width:104px; top:0; right:0; }
+  .food-accent__svg { height:100px; }
+  .research-overview .pill-grid { width:100%; }
+}
+@media(max-width:360px) {
+  .research-overview .section-header { padding-right:100px; min-height:88px; }
+  .food-accent { width:88px; }
+  .food-accent__svg { height:88px; }
+}
