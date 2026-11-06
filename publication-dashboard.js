@@ -26,7 +26,7 @@
   const start = document.getElementById('yearStart'), end = document.getElementById('yearEnd'), mode = document.getElementById('chartMode');
   const breakdown = document.getElementById('chartBreakdown');
   end.value = String(last);
-  start.value = String(Math.max(rows[0].year, last - 9));
+  start.value = String(rows[0].year);
   const categories = r => groups.map(([,a,b]) => sum(r.values.slice(a,b)));
   const bars = (labels, counts, denominator, percentages = false) => labels.map((l,i)=>`<div class="stats-bar"><div><span>${l}</span><strong>${fmt(counts[i])}${percentages ? ` <small>%${(denominator ? counts[i]/denominator*100 : 0).toLocaleString('tr-TR',{maximumFractionDigits:1})}</small>` : ''}</strong></div><div class="stats-track" aria-hidden="true"><i style="width:${counts[i]/Math.max(1,...counts)*100}%"></i></div></div>`).join('');
   function render() {
