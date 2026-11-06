@@ -37,6 +37,8 @@ a {
   text-decoration: none;
 }
 
+.nav-toggle { display:none; }
+
 .container {
   width: min(1180px, calc(100% - 32px));
   margin: 0 auto;
@@ -1052,8 +1054,27 @@ html { scroll-padding-top:110px; }
   .topbar-inner { flex-wrap:wrap; padding:12px 0; gap:8px 20px; }
   .main-nav { gap:8px 14px; }
 }
+
+@media (max-width:980px) {
+  html { scroll-padding-top:80px; }
+  .topbar.nav-ready .topbar-inner { position:relative; min-height:64px; flex-direction:row; flex-wrap:nowrap; align-items:center; justify-content:space-between; gap:12px; padding:8px 0; }
+  .topbar.nav-ready .brand-block { gap:9px; justify-content:flex-start; }
+  .topbar.nav-ready .brand-mark { flex:none; width:34px; height:34px; border-radius:11px; box-shadow:none; }
+  .topbar.nav-ready .brand-name { font-size:.88rem; line-height:1.3; letter-spacing:0; }
+  .topbar.nav-ready .brand-role { display:none; }
+  .nav-ready .nav-toggle { display:inline-flex; flex:none; align-items:center; justify-content:center; gap:7px; min-height:44px; padding:8px 10px; border:1px solid var(--line); border-radius:11px; background:#fff; color:var(--primary); font:inherit; font-size:.8rem; cursor:pointer; }
+  .nav-toggle__icon { display:grid; gap:4px; width:16px; }
+  .nav-toggle__icon i { display:block; height:2px; width:100%; background:currentColor; border-radius:2px; }
+  .nav-open .nav-toggle__icon i:first-child { transform:translateY(6px) rotate(45deg); }
+  .nav-open .nav-toggle__icon i:nth-child(2) { opacity:0; }
+  .nav-open .nav-toggle__icon i:last-child { transform:translateY(-6px) rotate(-45deg); }
+  .topbar.nav-ready .main-nav { display:none; position:absolute; top:calc(100% + 8px); left:0; right:0; max-height:calc(100dvh - 88px); overflow-y:auto; padding:8px; background:#fff; border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow); }
+  .topbar.nav-open .main-nav { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px; }
+  .topbar.nav-ready .main-nav a { white-space:normal; display:flex; align-items:center; min-height:48px; padding:10px 12px; border:0; border-radius:9px; color:var(--primary); font-size:.88rem; }
+  .topbar.nav-ready .main-nav a:hover,.topbar.nav-ready .main-nav a:focus-visible { background:var(--primary-soft); }
+}
 @media (max-width:700px) {
-  html { scroll-padding-top:145px; }
+  html { scroll-padding-top:80px; }
   .topbar-inner { align-items:stretch; }
   .brand-block { justify-content:center; }
   .main-nav { flex-wrap:nowrap; justify-content:flex-start; overflow-x:auto; max-width:100%; gap:16px; padding:4px 0; }
