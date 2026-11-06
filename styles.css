@@ -38,6 +38,15 @@ a {
 }
 
 .nav-toggle { display:none; }
+.is-page-hidden { display:none !important; }
+.pagination { grid-column:1 / -1; width:100%; margin-top:12px; padding:16px 0 0; border-top:1px solid var(--line); }
+.pagination__status { margin:0 0 12px; text-align:center; color:var(--muted); font-size:.85rem; }
+.pagination__controls { display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:10px; }
+.pagination button,.pagination select { min-height:44px; padding:8px 12px; font:inherit; font-size:.85rem; border:1px solid var(--line); border-radius:10px; background:white; color:var(--primary); }
+.pagination button { cursor:pointer; }
+.pagination button:disabled { opacity:.4; cursor:default; }
+.pagination label { display:flex; align-items:center; gap:6px; color:var(--muted); font-size:.8rem; }
+@media(max-width:390px) { .pagination__controls { gap:6px; } .pagination button,.pagination select { padding:8px; } .pagination label { font-size:0; gap:0; } }
 
 .container {
   width: min(1180px, calc(100% - 32px));
