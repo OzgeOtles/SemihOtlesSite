@@ -1138,3 +1138,22 @@ html { scroll-padding-top:110px; }
   .chart-key { font-size:.75rem; gap:10px 14px; }
   .stats-panel select,.dashboard-controls select,.pagination select { font-size:1rem; }
 }
+
+/* Short landscape viewports need a shorter plot, rather than scaled-down text. */
+@media (orientation:landscape) and (max-height:600px) and (max-width:980px) {
+  .dashboard-timeline { padding:10px 14px; }
+  .dashboard-timeline .stats-panel-heading { gap:8px 16px; align-items:center; }
+  .dashboard-timeline .stats-panel-heading > div:first-child { flex:1; min-width:180px; }
+  .dashboard-timeline .eyebrow { display:none; }
+  .dashboard-timeline h3 { font-size:1rem; line-height:1.25; }
+  .dashboard-timeline #timelineCaption { font-size:.75rem; line-height:1.3; margin:4px 0 0; }
+  .dashboard-timeline .timeline-controls { display:grid; width:auto; grid-template-columns:repeat(2,minmax(0,1fr)); gap:3px 8px; }
+  .timeline-controls label[for="chartBreakdown"] { grid-column:1; grid-row:1; }
+  .timeline-controls label[for="chartMode"] { grid-column:2; grid-row:1; }
+  .dashboard-timeline .timeline-controls select { grid-row:2; min-width:0; width:100%; min-height:44px; padding:6px; font-size:1rem; }
+  .dashboard-timeline .chart-key { margin:6px 0; font-size:.75rem; gap:8px 14px; }
+  .dashboard-timeline .timeline-columns { --timeline-height:clamp(48px,calc(100dvh - 300px),180px); }
+  .dashboard-timeline .timeline-scroll { padding:4px 0; }
+  .dashboard-timeline .chart-scroll-hint { display:none; }
+  .dashboard-timeline .year-detail { min-height:0; padding:6px 10px; margin:6px 0 0; font-size:.75rem; line-height:1.4; }
+}
