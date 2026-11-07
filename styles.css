@@ -1179,6 +1179,94 @@ html { scroll-padding-top:110px; }
 
 /* Academic profile: an editorial timeline, then an explorable career record. */
 .profile-personal-note { margin:18px 0 0; color:var(--muted); font-size:.75rem; line-height:1.6; }
+.profile-photo-link { display:block; border-radius:18px; }
+.profile-photo-link .profile-photo { object-position:center 24%; }
+.career-photos { margin:28px 0 8px; }
+.career-photos__heading { display:flex; align-items:center; gap:14px; margin-bottom:18px; }
+.career-photos__portrait { flex:0 0 52px; border-radius:50%; overflow:hidden; border:2px solid #fff; box-shadow:0 0 0 1px var(--line); }
+.career-photos__portrait img { width:52px; height:52px; object-fit:cover; }
+.career-photos__heading h3 { margin:0 0 5px; font-size:1.15rem; letter-spacing:-.025em; }
+.career-photos__heading p { margin:0; color:var(--muted); font-size:.8125rem; line-height:1.6; }
+.career-photo-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; border-radius:18px; }
+.photo-card { min-width:0; margin:0; background:#fff; border:1px solid var(--line); border-radius:18px; overflow:hidden; }
+.photo-link { position:relative; display:block; background:var(--panel-alt); cursor:zoom-in; }
+.profile-photo-link,.career-photos__portrait { cursor:zoom-in; }
+.photo-link img { width:100%; height:auto; }
+.career-photo-grid .photo-link { aspect-ratio:4/3; display:grid; place-items:center; }
+.career-photo-grid .photo-link img { height:100%; object-fit:contain; }
+.photo-expand { position:absolute; right:12px; bottom:12px; display:grid; place-items:center; width:36px; height:36px; border-radius:50%; background:#ffffffed; color:var(--primary); font-size:1.2rem; box-shadow:0 2px 8px #17242c12; pointer-events:none; }
+.photo-link:focus-visible { outline-offset:-4px; }
+.photo-card figcaption { display:grid; gap:6px; padding:17px 18px 19px; }
+.photo-card figcaption > span { color:var(--muted); font-size:.7rem; letter-spacing:.06em; }
+.photo-card figcaption > strong { font-size:.9375rem; line-height:1.4; font-weight:600; color:var(--primary); }
+.career-photos__hint { display:none; }
+.award-showcase { display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.65fr); align-items:start; gap:24px; }
+.award-showcase .award-entry { grid-template-columns:64px minmax(0,1fr); gap:18px; }
+.award-showcase .award-year { white-space:nowrap; font-variant-numeric:tabular-nums; }
+.publication-photo { display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr); align-items:center; gap:32px; padding:18px; margin:0 0 24px; border:1px solid var(--line); border-radius:22px; background:linear-gradient(115deg,#eaf0e9,#faf8f4); }
+.publication-photo > .photo-link { border-radius:12px; overflow:hidden; }
+.publication-photo figcaption { min-width:0; padding:12px 18px 12px 0; }
+.publication-photo h3 { margin:0 0 12px; font-size:clamp(1.25rem,2.5vw,1.85rem); line-height:1.2; letter-spacing:-.035em; color:var(--primary); }
+.publication-photo p { margin:0; color:var(--muted); font-size:.875rem; line-height:1.7; }
+.publication-photo__link { display:inline-flex; align-items:center; gap:18px; min-height:44px; margin-top:14px; font-size:.8125rem; font-weight:600; color:var(--primary); border-bottom:1px solid #afc5b6; }
+body.photo-viewer-open { overflow:hidden; }
+.photo-viewer { --viewer-chrome:182px; width:min(1100px,calc(100vw - 24px)); max-width:calc(100vw - 24px); max-height:calc(100dvh - 24px); border:1px solid var(--line); border-radius:20px; padding:18px 24px; overflow:hidden; background:var(--bg-soft); color:var(--text); }
+.photo-viewer[open] { display:grid; grid-template-rows:auto minmax(0,1fr) auto; gap:14px; }
+.photo-viewer::backdrop { background:#0d201ee0; }
+.photo-viewer__top { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.photo-viewer__top h2 { margin:0; font-size:.875rem; font-weight:600; color:var(--primary); }
+.photo-viewer__top form { margin:0; }
+.photo-viewer button { display:grid; place-items:center; min-width:44px; min-height:44px; border:1px solid var(--line); border-radius:50%; background:#fff; color:var(--primary); font:inherit; font-size:1.25rem; cursor:pointer; }
+.photo-viewer__close { font-size:1.7rem !important; }
+.photo-viewer__stage { display:flex; align-items:center; justify-content:center; min-height:0; min-width:0; }
+.photo-viewer__stage img { flex:0 1 auto; width:auto; height:auto; max-width:100%; max-height:calc(100dvh - var(--viewer-chrome)); object-fit:contain; border-radius:6px; }
+.photo-viewer__bottom { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.photo-viewer__bottom p { margin:0; max-width:660px; font-size:.875rem; line-height:1.6; overflow-wrap:anywhere; }
+.photo-viewer__controls { display:flex; flex:0 0 auto; align-items:center; gap:16px; }
+.photo-viewer__controls span { min-width:40px; text-align:center; font-size:.8125rem; color:var(--muted); font-variant-numeric:tabular-nums; }
+@media(hover:hover) {
+  .photo-link:hover .photo-expand { background:var(--primary); color:#fff; }
+  .publication-photo__link:hover { border-color:var(--primary); }
+}
+@media(max-width:980px) {
+  .career-photo-grid { gap:12px; }
+  .photo-card figcaption { padding:14px; }
+  .award-showcase { grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:18px; }
+  .award-showcase .award-list { padding:0 18px; }
+  .award-showcase .award-entry { grid-template-columns:48px minmax(0,1fr); gap:12px; }
+  .award-showcase .award-year { font-size:1.3rem; }
+  .publication-photo { gap:24px; }
+}
+@media(max-width:700px) {
+  .career-photos { margin-top:22px; }
+  .career-photos__heading { gap:12px; margin-bottom:12px; }
+  .career-photos__heading h3 { font-size:1rem; }
+  .career-photos__heading p { font-size:.75rem; }
+  .career-photo-grid { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; overscroll-behavior-inline:contain; padding:3px 2px 12px; scrollbar-width:thin; scrollbar-color:#adc5b8 transparent; }
+  .career-photo-grid > .photo-card { flex:0 0 86%; scroll-snap-align:start; }
+  .career-photos__hint { display:block; margin:4px 0 0; color:var(--muted); font-size:.7rem; }
+  .photo-card figcaption > strong { font-size:.875rem; }
+  .award-showcase { grid-template-columns:1fr; gap:16px; }
+  .award-photo { display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1fr); align-items:center; }
+  .award-photo figcaption { padding:18px; gap:10px; }
+  .publication-photo { grid-template-columns:1fr; gap:0; padding:12px; border-radius:18px; }
+  .publication-photo figcaption { padding:20px 8px 8px; }
+  .publication-photo h3 { font-size:1.3rem; }
+  .publication-photo p { font-size:.8125rem; }
+  .publication-photo .eyebrow { font-size:.65rem; }
+  .publication-photo__link { margin-top:8px; }
+  .photo-viewer { --viewer-chrome:220px; padding:12px; border-radius:14px; }
+  .photo-viewer[open] { gap:10px; }
+  .photo-viewer__bottom { flex-direction:column; align-items:stretch; gap:10px; }
+  .photo-viewer__bottom p { text-align:center; font-size:.8125rem; }
+  .photo-viewer__controls { justify-content:center; }
+}
+@media(orientation:landscape) and (max-height:500px) {
+  .photo-viewer { --viewer-chrome:152px; padding:8px 14px; }
+  .photo-viewer[open] { gap:6px; }
+  .photo-viewer__bottom { flex-direction:row; align-items:center; }
+  .photo-viewer__bottom p { text-align:left; font-size:.75rem; }
+}
 .academic-timeline { list-style:none; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0; margin:0; padding:12px 24px; background:#fff; border:1px solid var(--line); border-radius:22px; }
 .academic-step { position:relative; display:grid; align-content:start; gap:12px; padding:24px 20px 24px 26px; border-bottom:1px solid var(--line); }
 .academic-step:nth-last-child(-n+3) { border-bottom:0; }

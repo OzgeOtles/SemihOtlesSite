@@ -7,7 +7,7 @@
     <meta name="description" content="Prof. Dr. Semih Ötleş'in akademik özgeçmişi, görevleri, bilimsel üyelikleri, ödülleri, projeleri ve yayınları." />
     <link rel="icon" href="assets/semih-otles.jpg" type="image/jpeg" sizes="240x240" />
     <link rel="icon" href="assets/semih-otles-icon.svg" type="image/svg+xml" sizes="any" />
-    <link rel="stylesheet" href="styles.css?v=profile-photo" />
+    <link rel="stylesheet" href="styles.css?v=academic-photos" />
     <link rel="stylesheet" href="food-science-accent.css?v=larger-accent" />
   </head>
   <body>
@@ -65,7 +65,7 @@
               <span>bilimsel üyelik</span>
             </div>
             <div>
-              <strong id="awardCount">5</strong>
+              <strong id="awardCount">6</strong>
               <span>ödül</span>
             </div>
           </div>
@@ -73,7 +73,9 @@
 
         <aside class="profile-card">
           <div class="profile-card__top">
-            <img class="profile-photo" src="assets/semih-otles.jpg" width="240" height="240" alt="Prof. Dr. Semih Ötleş'in portresi" decoding="async" />
+            <a class="profile-photo-link" href="assets/photos/semih-otles-faculty.jpg" data-photo data-caption="Prof. Dr. Semih Ötleş · Gıda Mühendisliği" aria-label="Prof. Dr. Semih Ötleş'in portresini büyüt">
+              <img class="profile-photo" src="assets/photos/semih-otles-faculty.jpg" width="960" height="1200" alt="Prof. Dr. Semih Ötleş'in öğretim üyesi portresi" decoding="async" />
+            </a>
             <div class="profile-card__identity">
               <h2>Prof. Dr. Semih Ötleş</h2>
               <span class="status-pill">Eğitim ve araştırma</span>
@@ -123,6 +125,38 @@
           <h2 id="careerHeading">Bilim, yönetim ve iş birliği</h2>
           <p>Ege Üniversitesindeki görevlerden uluslararası bilimsel topluluklara uzanan çalışmalar.</p>
         </div>
+        <div class="career-photos" aria-labelledby="careerPhotosHeading">
+          <div class="career-photos__heading">
+            <a class="career-photos__portrait" href="assets/photos/semih-otles-linkedin.jpg" data-photo data-caption="Prof. Dr. Semih Ötleş · Profesyonel portre" aria-label="Prof. Dr. Semih Ötleş'in profesyonel portresini büyüt">
+              <img src="assets/photos/semih-otles-linkedin.jpg" width="200" height="200" alt="Prof. Dr. Semih Ötleş'in profesyonel portresi" loading="lazy" decoding="async" />
+            </a>
+            <div><h3 id="careerPhotosHeading">Akademik yaşamdan kareler</h3><p>Bilimsel buluşmalar ve bölümden anılar.</p></div>
+          </div>
+          <div class="career-photo-grid" role="region" aria-label="Akademik yaşam fotoğrafları" tabindex="0">
+            <figure class="photo-card">
+              <a class="photo-link" href="assets/photos/plm-workshop.jpg" data-photo data-caption="PLM çalıştayından bir kare" aria-label="PLM çalıştayı fotoğrafını büyüt">
+                <img src="assets/photos/plm-workshop.jpg" width="1280" height="853" alt="PLM çalıştayı katılımcılarının toplu fotoğrafı" loading="lazy" decoding="async" />
+                <span class="photo-expand" aria-hidden="true">↗</span>
+              </a>
+              <figcaption><span>Bilimsel buluşmalar</span><strong>PLM çalıştayı</strong></figcaption>
+            </figure>
+            <figure class="photo-card">
+              <a class="photo-link" href="assets/photos/department-farewell-group.jpg" data-photo data-caption="Ege Üniversitesi Gıda Mühendisliği Bölümü · Veda buluşması" aria-label="Bölüm önündeki toplu fotoğrafı büyüt">
+                <img src="assets/photos/department-farewell-group.jpg" width="1600" height="1200" alt="Ege Üniversitesi Gıda Mühendisliği Bölümü önünde toplu fotoğraf" loading="lazy" decoding="async" />
+                <span class="photo-expand" aria-hidden="true">↗</span>
+              </a>
+              <figcaption><span>Bölüm yaşamı</span><strong>Birlikte biriktirilen anılar</strong></figcaption>
+            </figure>
+            <figure class="photo-card">
+              <a class="photo-link" href="assets/photos/department-farewell.jpg" data-photo data-caption="Bölümdeki veda buluşmasından bir kare" aria-label="Bölümdeki veda buluşması fotoğrafını büyüt">
+                <img src="assets/photos/department-farewell.jpg" width="1200" height="901" alt="Bölümde masa etrafında gerçekleşen veda buluşması" loading="lazy" decoding="async" />
+                <span class="photo-expand" aria-hidden="true">↗</span>
+              </a>
+              <figcaption><span>Akademik dostluklar</span><strong>Bölümde veda buluşması</strong></figcaption>
+            </figure>
+          </div>
+          <p class="career-photos__hint">Diğer kareler için yana kaydırın.</p>
+        </div>
         <div id="academicProfile"></div>
       </section>
 
@@ -141,6 +175,13 @@
           </div>
         </div>
 
+        <figure class="publication-photo">
+          <a class="photo-link" href="assets/photos/books-russian-edition.gif" data-photo data-caption="Rusça yayımlanan gıda kitabıyla Prof. Dr. Semih Ötleş" aria-label="Rusça yayımlanan gıda kitabı fotoğrafını büyüt">
+            <img src="assets/photos/books-russian-edition.gif" width="565" height="334" alt="Prof. Dr. Semih Ötleş, kitaplık önünde kitaplarıyla" loading="lazy" decoding="async" />
+            <span class="photo-expand" aria-hidden="true">↗</span>
+          </a>
+          <figcaption><span class="eyebrow">Yayınlardan bir kare</span><h3>Gıda bilimi, farklı dillerde.</h3><p>Rusça yayımlanan gıda kitabıyla Prof. Dr. Semih Ötleş.</p><a class="publication-photo__link" href="#bookshelf_slider_widget">Kitapları keşfedin <span aria-hidden="true">↓</span></a></figcaption>
+        </figure>
         <div class="bookshelf-shell">
           <div id="bookshelf_slider_widget" class="bookshelf_slider" data-view="books">
             <div class="panel_title">
@@ -194,6 +235,12 @@
       </section>
     </main>
 
+    <dialog class="photo-viewer" id="photoViewer" aria-labelledby="photoViewerTitle" aria-describedby="photoViewerCaption">
+      <div class="photo-viewer__top"><h2 id="photoViewerTitle">Fotoğraflar</h2><form method="dialog"><button type="submit" class="photo-viewer__close" aria-label="Fotoğraf görüntüleyicisini kapat" autofocus>×</button></form></div>
+      <div class="photo-viewer__stage"><img id="photoViewerImage" alt="" /></div>
+      <div class="photo-viewer__bottom"><p id="photoViewerCaption"></p><div class="photo-viewer__controls"><button type="button" id="photoPrevious" aria-label="Önceki fotoğraf">←</button><span id="photoViewerCount" role="status" aria-live="polite"></span><button type="button" id="photoNext" aria-label="Sonraki fotoğraf">→</button></div></div>
+    </dialog>
+
     <div id="bookModal" class="book-modal" aria-hidden="true">
       <div class="book-modal__backdrop"></div>
       <div class="book-modal__content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -205,10 +252,11 @@
 
     <script src="books-data.js"></script>
     <script src="pagination.js?v=responsive-pages"></script>
-    <script src="academic-profile-data.js"></script>
-    <script src="academic-profile.js"></script>
+    <script src="academic-profile-data.js?v=award-2025"></script>
+    <script src="academic-profile.js?v=award-2025"></script>
     <script src="food-science-accent.js?v=equal-stage-timing"></script>
     <script src="app.js?v=section-indicator"></script>
+    <script src="photo-gallery.js"></script>
     <script src="publication-stats-data.js"></script>
     <script src="publication-dashboard.js"></script>
     <script>

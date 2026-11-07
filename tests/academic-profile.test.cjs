@@ -16,7 +16,9 @@ assert.equal(new Set(data.roles.map(r=>`${r.organization}|${r.title}|${r.period}
 for (const id of data.featuredRoleIds) assert.equal(data.roles.filter(r=>r.id===id).length,1);
 assert.equal(data.memberships.length,15);
 assert.equal(new Set(data.memberships.map(m=>m.name)).size,15);
-assert.deepEqual(Array.from(data.awards.map(a=>a.year)),['2004','2006','2008','2018','2019']);
+assert.deepEqual(Array.from(data.awards.map(a=>a.year)),['2004','2006','2008','2018','2019','2025']);
+assert.equal(new Set(data.awards.map(a=>a.id)).size,data.awards.length);
+assert.equal(data.awards.filter(a=>a.image==='assets/photos/award-ceremony.jpg').length,1);
 assert.equal(data.scholarships.travel.length,8);
 assert.equal(data.scholarships.research.length,4);
 assert.equal(data.projects.length,14);

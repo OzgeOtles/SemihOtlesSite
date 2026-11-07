@@ -13,6 +13,7 @@ const publicFiles = [
   'academic-profile.js',
   'food-science-accent.js',
   'app.js',
+  'photo-gallery.js',
   'publication-stats-data.js',
   'publication-dashboard.js',
   'js/yayinlar',

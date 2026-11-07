@@ -157,7 +157,8 @@ window.academicProfileData = (() => {
       {id:'award-fp6-2006',year:'2006',title:'TÜBİTAK AB 6. Çerçeve Programı Proje Önerisi Ödülü',description:'TUBITAK-EU FP6 Project Proposal Award.',sources:['Resume.doc:Awards','Özgeçmiş.doc:Ödüller']},
       {id:'award-service',year:'2008',title:'Hizmet Ödülü',description:'“Yaşlıların Daha İyi Bilgi Alabileceği İnteraktif Web Sitesi Hazırlanması” projesi.',event:'7. Ulusal Geriatri Kongresi · 18–22 Haziran 2008 · Çeşme',sources:['Resume.doc:Awards','Özgeçmiş.doc:Hizmet Ödülü']},
       {id:'award-presentation',year:'2018',title:'En İyi Sunum Ödülü',description:'“Bir Zeytin Atığı Olan Pirinadan Biyoaroma Üretimi”.',event:'6. Ulusal Zeytin Öğrenci Kongresi · 9–11 Mayıs 2018 · İzmir',sources:['Resume.doc:Awards','Özgeçmiş.doc:En İyi Sunum Ödülü']},
-      {id:'award-paper',year:'2019',title:'En İyi Makale Ödülü',description:'“Preparation of food-grade particles and their stabilization mechanisms in pickering emulsions”.',event:'Recent Advances in Food Science dergisi',sources:['Resume.doc:Awards','Özgeçmiş.doc:En İyi Makale Ödülü']}
+      {id:'award-paper',year:'2019',title:'En İyi Makale Ödülü',description:'“Preparation of food-grade particles and their stabilization mechanisms in pickering emulsions”.',event:'Recent Advances in Food Science dergisi',sources:['Resume.doc:Awards','Özgeçmiş.doc:En İyi Makale Ödülü']},
+      {id:'award-erdal-saygin-2025',year:'2025',title:'Prof. Dr. Erdal Saygın Akademi Meslek Ödülü',description:'Gıda Mühendisleri Odası tarafından verilmiştir.',image:'assets/photos/award-ceremony.jpg',sources:['Kullanıcının ödül adı, kurum ve yıl doğrulaması','odulfoto.jfif']}
     ],
     scholarships:{
       travel:['Ege Üniversitesi · Türkiye','NATO','CIHEAM · İspanya','IAMZ · İspanya','Ghent Üniversitesi · Belçika','Leuven Üniversitesi · Belçika','TÜBİTAK · Türkiye','Goethe Enstitüsü · Almanya'],
