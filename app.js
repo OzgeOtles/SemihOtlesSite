@@ -342,3 +342,33 @@ document.querySelectorAll("a[data-panel]").forEach((link) => {
 
 renderBooks();
 setShelfView("books");
+
+// Compact navigation is a disclosure, leaving native anchor navigation intact.
+(() => {
+  const header = document.querySelector('.topbar');
+  const toggle = document.querySelector('.nav-toggle');
+  const nav = document.getElementById('mainNavigation');
+  if (!header || !toggle || !nav) return;
+  const compact = window.matchMedia('(max-width: 980px)');
+  function setOpen(open, restoreFocus = false) {
+    header.classList.toggle('nav-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Menüyü kapat' : 'Menüyü aç');
+    if (restoreFocus) toggle.focus();
+  }
+  header.classList.add('nav-ready');
+  toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+  nav.addEventListener('click', event => {
+    if (compact.matches && event.target.closest('a')) setOpen(false, true);
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && header.classList.contains('nav-open')) setOpen(false, true);
+  });
+  document.addEventListener('click', event => {
+    if (!header.contains(event.target)) setOpen(false);
+  });
+  header.addEventListener('focusout', event => {
+    if (!header.contains(event.relatedTarget)) setOpen(false);
+  });
+  compact.addEventListener('change', () => setOpen(false));
+})();
