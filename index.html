@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Prof. Dr. Semih Ötleş | Özgeçmiş ve Yayınlar</title>
     <meta name="description" content="Prof. Dr. Semih Ötleş'in akademik özgeçmişi, eğitim geçmişi, araştırma alanları ve kitapları." />
-    <link rel="stylesheet" href="styles.css?v=compact-navigation" />
+    <link rel="stylesheet" href="styles.css?v=section-indicator" />
   </head>
   <body>
     <header class="topbar">
@@ -15,6 +15,7 @@
           <div>
             <div class="brand-name">Prof. Dr. Semih ÖTLEŞ</div>
             <div class="brand-role">Gıda Mühendisliği · Gıda Kimyası</div>
+            <div class="current-section" id="currentSection" aria-label="Bulunduğunuz bölüm">Özgeçmiş</div>
           </div>
         </div>
 
@@ -214,7 +215,8 @@
     </div>
 
     <script src="books-data.js"></script>
-    <script src="app.js?v=compact-navigation"></script>
+    <script src="pagination.js?v=responsive-pages"></script>
+    <script src="app.js?v=section-indicator"></script>
     <script src="publication-stats-data.js"></script>
     <script src="publication-dashboard.js"></script>
     <script>
@@ -263,6 +265,7 @@
           };
 
           const startSection = (title) => {
+            flushCurrentItem();
             currentSection = { title, subsections: [] };
             sections.push(currentSection);
             currentSubgroup = null;
@@ -365,6 +368,9 @@
           .then((text) => {
             const sections = parsePublicationSource(text);
             archiveEl.innerHTML = renderArchiveMarkup(sections);
+            archiveEl.querySelectorAll('.publication-list').forEach((list, index) => {
+              window.paginateList(list, '.publication-item', {key:`archive-${index}`, size:10, label:'Yayın listesi'});
+            });
           })
           .catch(() => {
             archiveEl.innerHTML = '<div class="publication-item">Yayın arşivi dosyası yüklenemedi. Lütfen sayfayı bir sunucu üzerinden açın.</div>';

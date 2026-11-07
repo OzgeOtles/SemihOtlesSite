@@ -222,7 +222,7 @@ function renderBooks() {
 
   bookShelfList.innerHTML = visibleBooks.map((book) => `
     <article class="product" data-title="${book.title}" tabindex="0" aria-label="${book.title}">
-      <img src="${book.image}" alt="${book.title}" class="img_thumb" />
+      <img src="${book.image}" alt="${book.title}" class="img_thumb" loading="lazy" />
       <div class="product_title"><p>${book.title}</p></div>
       <img class="fx_magazine" src="images/magazine_fx.png" alt="" />
       <img class="fx_shadow" src="images/shadow_fx.png" alt="" />
@@ -242,6 +242,7 @@ function renderBooks() {
       }
     });
   });
+  window.paginateList(bookShelfList, '.product', {key:'books', responsive:true, label:'Kitaplar'});
 }
 
 function renderChapters() {
@@ -251,7 +252,7 @@ function renderChapters() {
     const resolvedImage = resolveChapterImage(entry.image);
     return `
       <article class="chapter-card" data-title="${entry.title}" tabindex="0" aria-label="${entry.title}">
-        <img src="${resolvedImage}" alt="${entry.title}" class="chapter-card__image" />
+        <img src="${resolvedImage}" alt="${entry.title}" class="chapter-card__image" loading="lazy" />
         <div class="chapter-card__title">${entry.title}</div>
       </article>
     `;
@@ -272,6 +273,7 @@ function renderChapters() {
       }
     });
   });
+  window.paginateList(chapterList, '.chapter-card', {key:'chapters', responsive:true, label:'Kitap bölümleri'});
 }
 
 function setShelfView(view) {
@@ -297,6 +299,7 @@ function setShelfView(view) {
   } else {
     renderBooks();
   }
+  window.dispatchEvent(new Event('shelfviewchange'));
 }
 
 if (modal) {
@@ -371,4 +374,44 @@ setShelfView("books");
     if (!header.contains(event.relatedTarget)) setOpen(false);
   });
   compact.addEventListener('change', () => setOpen(false));
+})();
+
+// Track the section at the reading edge below the sticky header.
+(() => {
+  const header = document.querySelector('.topbar');
+  const label = document.getElementById('currentSection');
+  const links = Array.from(document.querySelectorAll('#mainNavigation a'));
+  const sections = Array.from(document.querySelectorAll('main > section[id]'));
+  if (!header || !label || !sections.length) return;
+  let frame = 0;
+  let activeId;
+  function update() {
+    frame = 0;
+    const edge = header.getBoundingClientRect().height + Math.min(64, innerHeight * .12);
+    let active = sections[0];
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= edge) active = section;
+    }
+    if (scrollY > 0 && scrollY + innerHeight >= document.documentElement.scrollHeight - 2) active = sections.at(-1);
+    const id = active.id === 'kitaplar' && shelfRoot?.dataset.view === 'chapters' ? 'bolumler' : active.id;
+    if (id === activeId) return;
+    activeId = id;
+    links.forEach(link => {
+      if (link.getAttribute('href') === `#${id}`) {
+        link.setAttribute('aria-current', 'location');
+        label.textContent = link.textContent;
+        label.setAttribute('aria-label', `Bulunduğunuz bölüm: ${link.textContent}`);
+      } else link.removeAttribute('aria-current');
+    });
+  }
+  function schedule() {
+    if (!frame) frame = requestAnimationFrame(update);
+  }
+  window.addEventListener('scroll', schedule, {passive:true});
+  window.addEventListener('resize', schedule);
+  window.addEventListener('shelfviewchange', schedule);
+  const observer = new ResizeObserver(schedule);
+  observer.observe(document.querySelector('main'));
+  observer.observe(header);
+  update();
 })();
