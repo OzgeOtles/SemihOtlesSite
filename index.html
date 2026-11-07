@@ -8,6 +8,7 @@
     <link rel="icon" href="assets/semih-otles.jpg" type="image/jpeg" sizes="240x240" />
     <link rel="icon" href="assets/semih-otles-icon.svg" type="image/svg+xml" sizes="any" />
     <link rel="stylesheet" href="styles.css?v=profile-photo" />
+    <link rel="stylesheet" href="food-science-accent.css?v=larger-accent" />
   </head>
   <body>
     <header class="topbar">
@@ -104,12 +105,16 @@
       </section>
 
       <section class="section" id="arastirma">
-        <div class="section-header">
-          <span class="eyebrow">Araştırma alanları</span>
-          <h2>Bilimsel çalışma odakları</h2>
+        <div class="research-overview">
+          <div>
+            <div class="section-header">
+              <span class="eyebrow">Araştırma alanları</span>
+              <h2>Bilimsel çalışma odakları</h2>
+            </div>
+            <div class="pill-grid" id="researchInterests"></div>
+          </div>
+          <figure class="food-accent" id="foodScienceAccent" aria-hidden="true"></figure>
         </div>
-
-        <div class="pill-grid" id="researchInterests"></div>
       </section>
 
       <section class="section career-section" id="kariyer" aria-labelledby="careerHeading">
@@ -202,6 +207,7 @@
     <script src="pagination.js?v=responsive-pages"></script>
     <script src="academic-profile-data.js"></script>
     <script src="academic-profile.js"></script>
+    <script src="food-science-accent.js?v=equal-stage-timing"></script>
     <script src="app.js?v=section-indicator"></script>
     <script src="publication-stats-data.js"></script>
     <script src="publication-dashboard.js"></script>
