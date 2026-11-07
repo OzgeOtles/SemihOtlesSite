@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=https://render.com/schema/render.yaml.json
+# Static sites are free; do not add a Web Service compute plan or a database.
+services:
+  - type: web
+    name: semih-otles
+    runtime: static
+    # Production only deploys reviewed changes merged into main.
+    branch: main
+    buildCommand: node scripts/build-static.cjs
+    staticPublishPath: ./dist
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: SKIP_INSTALL_DEPS
+        value: "true"
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      # Filenames are not fingerprinted: revalidate so data updates stay visible.
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=0, must-revalidate
+      # The publication archive is a UTF-8 text file with no extension.
+      - path: /js/yayinlar
+        name: Content-Type
+        value: text/plain; charset=utf-8
+    # Once the domain is purchased, add it here, then configure DNS in Render.
+    # domains:
+    #   - profdrsemihotles.com.tr
+    # Also set SITE_URL=https://profdrsemihotles.com.tr in the Render dashboard.
