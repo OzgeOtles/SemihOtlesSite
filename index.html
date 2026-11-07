@@ -193,64 +193,10 @@
       <section class="section stats-section" id="yayin-istatistigi">
         <div class="section-header">
           <span class="eyebrow">Yayın istatistiği</span>
-          <h2>PROF. DR. SEMİH ÖTLEŞ'İN YAYIN İSTATİSTİĞİ</h2>
+          <h2>Yıllara göre akademik üretim</h2>
         </div>
 
-        <div class="stats-summary">
-          <div class="stats-summary__card">
-            <span class="stats-summary__label">Toplam yayın</span>
-            <strong>991</strong>
-          </div>
-          <div class="stats-summary__card">
-            <span class="stats-summary__label">Araştırma</span>
-            <strong>444</strong>
-          </div>
-          <div class="stats-summary__card">
-            <span class="stats-summary__label">Derleme</span>
-            <strong>94</strong>
-          </div>
-          <div class="stats-summary__card">
-            <span class="stats-summary__label">Kitap / tez / rapor</span>
-            <strong>69 / 44 / 70</strong>
-          </div>
-        </div>
-
-        <div class="stats-legend" aria-label="Yayın istatistiği açıklaması">
-          <span><strong>KTR</strong> = Kitap, tez ve rapor</span>
-          <span><strong>T</strong> = Türkçe</span>
-          <span><strong>E</strong> = İngilizce</span>
-          <span><strong>D</strong> = Almanca ve diğer diller</span>
-          <span><strong>G</strong> = Genel toplam</span>
-        </div>
-
-        <div class="stats-table-wrap">
-          <table class="stats-table">
-            <thead>
-              <tr class="stats-table__header-main">
-                <th rowspan="2">Tarih</th>
-                <th rowspan="2">KTR</th>
-                <th colspan="4">A. Araştırmalar</th>
-                <th colspan="4">B. Derlemeler</th>
-                <th colspan="4">Toplam</th>
-              </tr>
-              <tr class="stats-table__header-sub">
-                <th>YDD</th>
-                <th>YDK</th>
-                <th>YİD</th>
-                <th>YİK</th>
-                <th>YDD</th>
-                <th>YDK</th>
-                <th>YİD</th>
-                <th>YİK</th>
-                <th>T</th>
-                <th>E</th>
-                <th>D</th>
-                <th>G</th>
-              </tr>
-            </thead>
-            <tbody id="statsTableBody"></tbody>
-          </table>
-        </div>
+        <div id="statsContent"></div>
       </section>
     </main>
 
@@ -265,6 +211,8 @@
 
     <script src="books-data.js"></script>
     <script src="app.js"></script>
+    <script src="publication-stats-data.js"></script>
+    <script src="publication-stats.js"></script>
     <script>
       (() => {
         const archiveEl = document.getElementById("publicationArchive");
@@ -418,71 +366,6 @@
             archiveEl.innerHTML = '<div class="publication-item">Yayın arşivi dosyası yüklenemedi. Lütfen sayfayı bir sunucu üzerinden açın.</div>';
           });
 
-        const statsTableBody = document.getElementById("statsTableBody");
-        const statsRows = [
-          { year: 1985, ktr: 1, research: [1, 0, 1, 1], derleme: [0, 0, 0, 0], total: [1, 1, 0, 3] },
-          { year: 1986, ktr: 1, research: [1, 1, 1, 2], derleme: [0, 1, 1, 0], total: [2, 1, 1, 6] },
-          { year: 1987, ktr: 1, research: [1, 0, 1, 0], derleme: [0, 0, 0, 0], total: [1, 0, 0, 3] },
-          { year: 1988, ktr: 1, research: [0, 0, 0, 0], derleme: [0, 0, 0, 0], total: [0, 0, 0, 1] },
-          { year: 1989, ktr: 2, research: [1, 1, 1, 0], derleme: [0, 0, 1, 0], total: [2, 1, 0, 5] },
-          { year: 1990, ktr: 1, research: [3, 1, 2, 0], derleme: [0, 0, 0, 0], total: [1, 3, 1, 7] },
-          { year: 1991, ktr: 1, research: [2, 1, 0, 0], derleme: [0, 0, 0, 0], total: [1, 2, 1, 4] },
-          { year: 1992, ktr: 1, research: [2, 2, 2, 1], derleme: [1, 1, 3, 0], total: [2, 2, 2, 9] },
-          { year: 1993, ktr: 3, research: [3, 1, 2, 1], derleme: [1, 1, 1, 0], total: [3, 3, 1, 11] },
-          { year: 1994, ktr: 1, research: [3, 1, 1, 2], derleme: [1, 1, 1, 0], total: [1, 3, 1, 10] },
-          { year: 1995, ktr: 4, research: [2, 1, 1, 3], derleme: [1, 1, 1, 0], total: [4, 2, 1, 13] },
-          { year: 1996, ktr: 3, research: [1, 2, 1, 4], derleme: [1, 1, 1, 0], total: [3, 1, 2, 16] },
-          { year: 1997, ktr: 1, research: [1, 1, 3, 3], derleme: [1, 1, 1, 0], total: [1, 1, 3, 12] },
-          { year: 1998, ktr: 1, research: [1, 1, 2, 7], derleme: [1, 1, 1, 0], total: [1, 2, 3, 16] },
-          { year: 1999, ktr: 1, research: [2, 2, 2, 7], derleme: [1, 0, 1, 0], total: [1, 2, 2, 17] },
-          { year: 2000, ktr: 3, research: [2, 1, 1, 6], derleme: [1, 0, 1, 0], total: [3, 2, 1, 13] },
-          { year: 2001, ktr: 4, research: [2, 0, 8, 3], derleme: [0, 0, 1, 0], total: [4, 2, 8, 17] },
-          { year: 2002, ktr: 2, research: [1, 1, 1, 2], derleme: [1, 1, 2, 4], total: [2, 1, 1, 14] },
-          { year: 2003, ktr: 1, research: [5, 0, 7, 3], derleme: [1, 2, 1, 0], total: [1, 5, 7, 23] },
-          { year: 2004, ktr: 2, research: [2, 0, 6, 10], derleme: [1, 1, 0, 0], total: [2, 2, 6, 24] },
-          { year: 2005, ktr: 1, research: [1, 1, 2, 2], derleme: [1, 1, 1, 0], total: [1, 1, 2, 30] },
-          { year: 2006, ktr: 1, research: [2, 1, 2, 1], derleme: [1, 1, 1, 11], total: [1, 2, 1, 24] },
-          { year: 2007, ktr: 2, research: [1, 1, 6, 1], derleme: [1, 1, 2, 14], total: [2, 1, 6, 27] },
-          { year: 2008, ktr: 3, research: [4, 1, 4, 2], derleme: [2, 1, 2, 2], total: [3, 4, 1, 37] },
-          { year: 2009, ktr: 2, research: [1, 2, 1, 1], derleme: [1, 1, 2, 2], total: [2, 1, 2, 21] },
-          { year: 2010, ktr: 1, research: [1, 1, 2, 3], derleme: [1, 1, 1, 11], total: [1, 1, 2, 29] },
-          { year: 2011, ktr: 1, research: [1, 1, 1, 3], derleme: [1, 1, 1, 14], total: [1, 1, 1, 30] },
-          { year: 2012, ktr: 2, research: [2, 2, 2, 1], derleme: [1, 1, 1, 4], total: [2, 2, 2, 29] },
-          { year: 2013, ktr: 1, research: [1, 1, 2, 2], derleme: [1, 1, 1, 12], total: [1, 1, 2, 29] },
-          { year: 2014, ktr: 1, research: [1, 1, 3, 1], derleme: [1, 1, 1, 2], total: [1, 1, 3, 36] },
-          { year: 2015, ktr: 12, research: [3, 1, 1, 3], derleme: [1, 1, 1, 1], total: [12, 3, 1, 46] },
-          { year: 2016, ktr: 4, research: [1, 2, 1, 4], derleme: [1, 1, 1, 2], total: [4, 1, 2, 31] },
-          { year: 2017, ktr: 2, research: [1, 5, 2, 6], derleme: [1, 1, 1, 3], total: [2, 1, 5, 47] },
-          { year: 2018, ktr: 8, research: [5, 1, 3, 2], derleme: [1, 1, 1, 1], total: [8, 5, 1, 53] },
-          { year: 2019, ktr: 8, research: [2, 10, 2, 1], derleme: [1, 1, 1, 1], total: [8, 2, 10, 67] },
-          { year: 2020, ktr: 5, research: [1, 7, 2, 1], derleme: [1, 1, 1, 1], total: [5, 1, 7, 43] },
-          { year: 2021, ktr: 3, research: [1, 4, 1, 1], derleme: [1, 1, 1, 1], total: [3, 1, 4, 53] },
-          { year: 2022, ktr: 4, research: [1, 3, 0, 0], derleme: [1, 1, 0, 0], total: [4, 1, 3, 55] },
-          { year: 2023, ktr: 1, research: [3, 1, 0, 0], derleme: [0, 0, 0, 0], total: [1, 3, 1, 39] },
-          { year: 2024, ktr: 5, research: [0, 0, 0, 0], derleme: [0, 0, 0, 0], total: [5, 0, 0, 22] },
-          { year: 2025, ktr: 1, research: [1, 1, 0, 0], derleme: [0, 0, 0, 0], total: [1, 1, 1, 21] },
-          { year: 2026, ktr: 2, research: [1, 0, 0, 0], derleme: [0, 0, 0, 0], total: [2, 1, 0, 6] },
-          { year: 2027, ktr: 0, research: [0, 0, 0, 0], derleme: [0, 0, 0, 0], total: [0, 0, 0, 0] }
-        ];
-
-        const totalRow = { year: "Genel Toplam", ktr: 69, research: [44, 0, 0, 0], derleme: [0, 0, 0, 0], total: [69, 44, 70, 991] };
-
-        const rows = [...statsRows, totalRow];
-        statsTableBody.innerHTML = rows.map((row) => {
-          const cells = [
-            `<td>${row.year}</td>`,
-            `<td>${row.ktr}</td>`,
-            ...row.research.map((value) => `<td>${value}</td>`),
-            ...row.derleme.map((value) => `<td>${value}</td>`),
-            ...row.total.map((value) => `<td>${value}</td>`)
-          ];
-
-          if (row.year === "Genel Toplam") {
-            return `<tr>${cells.map((cell) => cell.replace("<td>", '<td class="stats-total">')).join("")}</tr>`;
-          }
-
-          return `<tr>${cells.join("")}</tr>`;
-        }).join("");
       })();
     </script>
   </body>
