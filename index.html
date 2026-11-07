@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Prof. Dr. Semih Ötleş | Özgeçmiş ve Yayınlar</title>
-    <meta name="description" content="Prof. Dr. Semih Ötleş'in akademik özgeçmişi, eğitim geçmişi, araştırma alanları ve kitapları." />
-    <link rel="stylesheet" href="styles.css?v=section-indicator" />
+    <meta name="description" content="Prof. Dr. Semih Ötleş'in akademik özgeçmişi, görevleri, bilimsel üyelikleri, ödülleri, projeleri ve yayınları." />
+    <link rel="stylesheet" href="styles.css?v=academic-profile" />
   </head>
   <body>
     <header class="topbar">
@@ -27,6 +27,7 @@
           <a href="#ozgecmis">Özgeçmiş</a>
           <a href="#egitim">Eğitim</a>
           <a href="#arastirma">Araştırma</a>
+          <a href="#kariyer">Kariyer</a>
           <a href="#kitaplar" data-panel="books">Kitaplar</a>
           <a href="#bolumler" data-panel="chapters">Bölümler</a>
           <a href="#yayin-listesi">Yayın Arşivi</a>
@@ -41,28 +42,28 @@
           <span class="eyebrow">Akademik profil</span>
           <h1>Gıda kimyası, beslenme ve güvenlik alanında bilim üretimi.</h1>
           <p>
-            Prof. Dr. Semih Ötleş, gıda bilimleri ve gıda mühendisliği alanında kapsamlı araştırma
-            üretimi, bilimsel yayınlar ve eğitim katkılarıyla öne çıkan akademisyenlerden biridir.
-            Çalışmaları, gıda bileşenleri, kalite, güvenlik, beslenme, zeytinyağı ve gıda teknolojisi
-            alanlarında derin bir uzmanlık ve topluma değer katan bir yaklaşım sergilemektedir.
+            Prof. Dr. Semih Ötleş’in akademik çalışmaları gıda kimyası, fonksiyonel gıdalar,
+            enstrümantal analiz ve nanobilim alanlarını kapsar. Ege Üniversitesindeki eğitimini
+            Ghent Üniversitesinde doktora sonrası araştırmayla sürdürmüş; üniversite yönetimi,
+            uluslararası bilimsel ağlar ve yayın kurullarında görev almıştır.
           </p>
 
           <div class="quick-facts">
             <div>
-              <strong>285</strong>
-              <span>yayın</span>
+              <strong>1989</strong>
+              <span>doktora</span>
             </div>
             <div>
-              <strong>1.566</strong>
-              <span>atıf</span>
+              <strong>2000</strong>
+              <span>profesörlük</span>
             </div>
             <div>
-              <strong>18</strong>
-              <span>h-endeksi</span>
+              <strong id="membershipCount">15</strong>
+              <span>bilimsel üyelik</span>
             </div>
             <div>
-              <strong>37</strong>
-              <span>proje</span>
+              <strong id="awardCount">5</strong>
+              <span>ödül</span>
             </div>
           </div>
         </div>
@@ -76,47 +77,24 @@
             <li><span class="label">Üniversite</span><strong>Ege Üniversitesi</strong></li>
             <li><span class="label">Bölüm</span><strong>Gıda Mühendisliği</strong></li>
             <li><span class="label">Alan</span><strong>Gıda Bilimleri</strong></li>
-            <li><span class="label">Yabancı Dil</span><strong>Almanca / İngilizce</strong></li>
+            <li><span class="label">Yabancı diller</span><strong id="profileLanguages">İngilizce / Almanca / Felemenkçe / Japonca</strong></li>
           </ul>
 
           <div class="profile-links">
             <a href="https://unisis.ege.edu.tr/researcher=semih.otles?menu=education" target="_blank" rel="noreferrer">Eğitim bilgileri</a>
             <a href="https://scholar.google.com.tr/citations?user=OrbpzgEAAAAJ" target="_blank" rel="noreferrer">Google Scholar</a>
           </div>
+          <p class="profile-personal-note">Akademi dışında: bilgisayar, yürüyüş ve müzik.</p>
         </aside>
       </section>
 
       <section class="section" id="egitim">
         <div class="section-header">
-          <span class="eyebrow">Eğitim geçmişi</span>
-          <h2>Akademik kariyer ve öğrenim süreci</h2>
+          <span class="eyebrow">Eğitim ve unvanlar</span>
+          <h2>Akademik yolculuk</h2>
         </div>
 
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-year">1985–1989</div>
-            <div class="timeline-content">
-              <h3>Doktora</h3>
-              <p>Ege Üniversitesi, Mühendislik Fakültesi, Gıda Mühendisliği Bölümü</p>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">1982–1985</div>
-            <div class="timeline-content">
-              <h3>Yüksek Lisans</h3>
-              <p>Ege Üniversitesi, Mühendislik Fakültesi, Gıda Mühendisliği Bölümü</p>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">1976–1980</div>
-            <div class="timeline-content">
-              <h3>Lisans</h3>
-              <p>Ege Üniversitesi, Mühendislik Fakültesi, Gıda Mühendisliği Bölümü</p>
-            </div>
-          </div>
-        </div>
+        <ol class="academic-timeline" id="academicTimeline"></ol>
       </section>
 
       <section class="section" id="arastirma">
@@ -125,16 +103,16 @@
           <h2>Bilimsel çalışma odakları</h2>
         </div>
 
-        <div class="pill-grid">
-          <span>Gıda Bilimleri</span>
-          <span>Gıda Kimyası</span>
-          <span>Gıda Mühendisliği</span>
-          <span>Zeytinyağı</span>
-          <span>Beslenme</span>
-          <span>Gıda Güvenliği</span>
-          <span>Analitik Yöntemler</span>
-          <span>Sağlıklı Yaşam</span>
+        <div class="pill-grid" id="researchInterests"></div>
+      </section>
+
+      <section class="section career-section" id="kariyer" aria-labelledby="careerHeading">
+        <div class="section-header career-section__header">
+          <span class="eyebrow">Akademik yaşam</span>
+          <h2 id="careerHeading">Bilim, yönetim ve iş birliği</h2>
+          <p>Ege Üniversitesindeki görevlerden uluslararası bilimsel topluluklara uzanan çalışmalar.</p>
         </div>
+        <div id="academicProfile"></div>
       </section>
 
       <section class="section cv-books" id="kitaplar">
@@ -216,6 +194,8 @@
 
     <script src="books-data.js"></script>
     <script src="pagination.js?v=responsive-pages"></script>
+    <script src="academic-profile-data.js"></script>
+    <script src="academic-profile.js"></script>
     <script src="app.js?v=section-indicator"></script>
     <script src="publication-stats-data.js"></script>
     <script src="publication-dashboard.js"></script>
