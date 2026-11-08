@@ -160,30 +160,12 @@ a {
   font-size: 1.03rem;
 }
 
-.quick-facts {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
-  margin-top: 28px;
+.hero-copy p + p {
+  margin-top: 16px;
 }
 
-.quick-facts div {
-  background: rgba(255, 255, 255, 0.75);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  padding: 18px 16px;
-  box-shadow: var(--shadow);
-}
-
-.quick-facts strong {
-  display: block;
-  font-size: 1.7rem;
-  color: var(--primary);
-}
-
-.quick-facts span {
-  color: var(--muted);
-  font-size: 0.8rem;
+.date-range {
+  white-space: nowrap;
 }
 
 .profile-card {
@@ -1039,10 +1021,6 @@ a {
     justify-content: center;
   }
 
-  .quick-facts {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .timeline-item {
     grid-template-columns: 1fr;
   }
@@ -1060,10 +1038,6 @@ a {
 }
 
 @media (max-width: 480px) {
-  .quick-facts {
-    grid-template-columns: 1fr;
-  }
-
   .button_items {
     gap: 4px;
   }
@@ -1135,9 +1109,6 @@ html { scroll-padding-top:110px; }
   .timeline-content h3,.stats-panel h3 { font-size:1rem; line-height:1.35; }
   .timeline-content p,.publication-item { font-size:.875rem; line-height:1.65; }
   .timeline-year { font-size:.8125rem; }
-  .quick-facts { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:20px; }
-  .quick-facts div { padding:14px; }
-  .quick-facts strong { font-size:1.4rem; }
   .profile-list strong { font-size:.9375rem; }
   .profile-list li { gap:5px; padding:10px 12px; }
   .profile-links a { font-size:.875rem; min-height:44px; }

@@ -15,8 +15,6 @@
   const interests = document.getElementById('researchInterests');
   if (interests) interests.innerHTML = data.interests.map(text => `<span>${escape(text)}</span>`).join('');
   document.getElementById('profileLanguages').textContent = data.languages.join(' / ');
-  document.getElementById('membershipCount').textContent = data.memberships.length;
-  document.getElementById('awardCount').textContent = data.awards.length;
   root.innerHTML = `
     <nav class="career-jumps" aria-label="Kariyer bölümleri">
       <a href="#akademik-gorevler">Görevler <span>${data.roles.length}</span></a>
