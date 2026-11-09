@@ -14,6 +14,8 @@ services:
         value: "24"
       - key: SKIP_INSTALL_DEPS
         value: "true"
+      - key: SITE_URL
+        value: "https://www.profdrsemihotles.com.tr"
     headers:
       - path: /*
         name: X-Content-Type-Options
@@ -29,7 +31,7 @@ services:
       - path: /js/yayinlar
         name: Content-Type
         value: text/plain; charset=utf-8
-    # Once the domain is purchased, add it here, then configure DNS in Render.
+    # Keep www.profdrsemihotles.com.tr as the primary custom domain in Render.
     # domains:
-    #   - profdrsemihotles.com.tr
-    # Also set SITE_URL=https://profdrsemihotles.com.tr in the Render dashboard.
+    #   - www.profdrsemihotles.com.tr
+    # SITE_URL must match the primary HTTPS address above.
