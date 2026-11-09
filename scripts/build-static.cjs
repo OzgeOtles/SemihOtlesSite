@@ -1,8 +1,12 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const vm = require('node:vm');
+const renderer = require('../academic-profile-renderer.js');
+const { renderSeo } = require('./seo.cjs');
 
 const root = path.resolve(__dirname, '..');
 const output = path.resolve(root, 'dist');
+const defaultSiteUrl = 'https://www.profdrsemihotles.com.tr/';
 const publicFiles = [
   'index.html',
   'styles.css',
@@ -10,6 +14,7 @@ const publicFiles = [
   'books-data.js',
   'pagination.js',
   'academic-profile-data.js',
+  'academic-profile-renderer.js',
   'academic-profile.js',
   'food-science-accent.js',
   'app.js',
@@ -25,7 +30,7 @@ function normalizeSiteUrl(value) {
   const url = new URL(value);
   if (url.protocol !== 'https:' || url.username || url.password || url.port ||
       url.pathname !== '/' || url.search || url.hash) {
-    throw new Error('SITE_URL must be an HTTPS origin, for example https://profdrsemihotles.com.tr');
+    throw new Error('SITE_URL must be an HTTPS origin, for example https://www.profdrsemihotles.com.tr');
   }
   return url.origin + '/';
 }
@@ -52,11 +57,30 @@ function validateReferences(html, files) {
   if (!files.has('js/yayinlar')) throw new Error('Missing publication archive');
 }
 
-function buildStatic({ siteUrl = process.env.SITE_URL || '' } = {}) {
+function renderAcademicContent(html, data) {
+  const regions = [
+    ['<ol class="academic-timeline" id="academicTimeline">', '</ol>', renderer.renderEducation(data)],
+    ['<div class="pill-grid" id="researchInterests">', '</div>', renderer.renderInterests(data)],
+    ['<div id="academicProfile">', '</div>', renderer.renderProfile(data)],
+  ];
+  for (const [opening, closing, content] of regions) {
+    const placeholder = opening + closing;
+    if (!html.includes(placeholder)) throw new Error('Missing static profile placeholder: ' + opening);
+    html = html.replace(placeholder, () => opening + content + closing);
+  }
+  return html;
+}
+
+function buildStatic({ siteUrl = process.env.SITE_URL || defaultSiteUrl } = {}) {
   // Validate before replacing the previous build.
   const canonicalUrl = normalizeSiteUrl(siteUrl);
   const files = [...publicFiles, ...['assets', 'books', 'images'].flatMap(collectImages)];
   let html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  const context = { window: {} };
+  vm.runInNewContext(fs.readFileSync(path.join(root, 'academic-profile-data.js'), 'utf8'), context);
+  html = renderAcademicContent(html, context.window.academicProfileData);
+  const seo = renderSeo(html, context.window.academicProfileData, canonicalUrl);
+  html = html.replace('  </head>', () => seo + '  </head>');
   validateReferences(html, new Set(files));
 
   // Only this checkout's generated dist directory may be removed.
@@ -76,7 +100,6 @@ function buildStatic({ siteUrl = process.env.SITE_URL || '' } = {}) {
 
   let robots = 'User-agent: *\nAllow: /\n';
   if (canonicalUrl) {
-    html = html.replace('  </head>', `    <link rel="canonical" href="${canonicalUrl}" />\n  </head>`);
     const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n' +
       '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
       `  <url><loc>${canonicalUrl}</loc></url>\n</urlset>\n`;
@@ -86,9 +109,9 @@ function buildStatic({ siteUrl = process.env.SITE_URL || '' } = {}) {
   fs.writeFileSync(path.join(output, 'index.html'), html);
   fs.writeFileSync(path.join(output, 'robots.txt'), robots);
   console.log(`Static site ready: ${files.length + 1 + Number(Boolean(canonicalUrl))} files in dist/`);
-  if (!canonicalUrl) console.log('Set SITE_URL after choosing the final domain to generate the canonical URL and sitemap.');
+  if (!canonicalUrl) console.log('Canonical, social metadata and sitemap are disabled for this local build.');
   return output;
 }
 
 if (require.main === module) buildStatic();
-module.exports = { buildStatic, normalizeSiteUrl };
+module.exports = { buildStatic, normalizeSiteUrl, defaultSiteUrl };

@@ -14,6 +14,7 @@ Bu proje HTML, CSS, JavaScript, görseller ve kaynak belgelerden doğrulanmış 
 | Yayın branch'i | `main` |
 | Otomatik deploy | `main` güncellendiğinde |
 | Build Node sürümü | 24.x |
+| Asıl adres / SITE_URL | `https://www.profdrsemihotles.com.tr` |
 | Veritabanı / ortam sırrı | Gerekmiyor |
 
 `plan`, `startCommand` ve `region` eklenmez: bunlar bu Static Site için kullanılmaz. Dosyalar Render'ın global CDN'i üzerinden sunulur. Static Site barındırması ücretsizdir; trafik ve build kullanımı workspace kotasına dahildir. Kota ve ücretlendirme koşulları için Render panelini kontrol edin.
@@ -35,22 +36,14 @@ Bu mevcut zincirde **Create a merge commit** kullanmak ortak commit geçmişini 
 
 ## Alan adı ve DNS
 
-Alan adı henüz satın alınmış veya müsaitliği doğrulanmış değildir. Örnek isimler rezervasyon anlamına gelmez.
+Kullanıcının belirttiği asıl adres **https://www.profdrsemihotles.com.tr/** olarak yapılandırılmıştır. DNS ve Render domain doğrulaması ayrıca kontrol edilmelidir; kaynak kodundaki adres, bu işlemlerin tamamlandığını göstermez.
 
-1. Son alan adını satın alın. `semihotles.com` daha kısa; `profdrsemihotles.com` ve `profdrsemihotles.com.tr` de kullanılabilir. Seçimi müsaitlik ve yenileme bedeline göre yapın.
-2. Satın alınan kök alan adını `render.yaml` içindeki yorumlu `domains` listesine yazın ve izlenen branch'e push edin. Render, kök alan adı eklenince `www` adresini de ekleyip kök adrese yönlendirir. Alan adını Blueprint'e yazmak tescil veya DNS ayarı yapmaz.
-3. Alan adı sağlayıcısında Render panelinin gösterdiği DNS kayıtlarını uygulayın. Genel kayıt düzeni:
-
-   | Tür | Ad | Hedef |
-   | --- | --- | --- |
-   | A | `@` | Render'ın güncel panelinde verilen IPv4 adresi (belgelerde `216.24.57.1`) |
-   | CNAME | `www` | Servisin paneldeki gerçek `*.onrender.com` adresi |
-
-   Sağlayıcı `ALIAS` / `ANAME` destekliyorsa kök alan adı için Render'ın ilgili sağlayıcı yönergesini izleyebilirsiniz. Siteye ait çakışan A/AAAA kayıtlarını düzeltin; mevcut e-posta MX/TXT kayıtlarını koruyun.
-4. Render **Settings → Custom Domains → Verify** üzerinden doğrulayın. HTTPS sertifikası Render tarafından otomatik sağlanır ve yenilenir.
-5. Render servisinin Environment bölümünde `SITE_URL` değerini son kök adres olarak ayarlayın: örneğin `https://profdrsemihotles.com.tr`. Ardından yeniden build/deploy başlatın. Değer yalnızca HTTPS origin olmalı; alt sayfa, query veya fragment içermemelidir.
-6. Build, bu değerle `index.html` içine canonical adresi ekler; `sitemap.xml` ve buna işaret eden `robots.txt` üretir. Alan adı değişirse `SITE_URL` değerini değiştirip yeniden deploy edin. Değer verilmezse yanlış bir domain yazılmaz; sitemap ve canonical üretilmez.
-7. HTTPS ve DNS çalıştıktan sonra Google Search Console'da domaini doğrulayıp `/sitemap.xml` adresini gönderin. İki domain alırsanız aynı içeriği ayrı siteler olarak yayınlamak yerine ikincisini seçilen asıl domaine kalıcı yönlendirin.
+1. Render **Settings → Custom Domains** bölümünde `www.profdrsemihotles.com.tr` adresini doğrulayın ve asıl adres olarak seçin. Sağlayıcıda Render panelinin gösterdiği DNS kayıtlarını kullanın; mevcut e-posta MX/TXT kayıtlarını koruyun.
+2. `https://profdrsemihotles.com.tr/` ve HTTP sürümleri asıl HTTPS `www` adresine tek yönde kalıcı yönlenmelidir. Render'daki asıl domain ve canonical yönü eşleşmelidir. Aksi yönde mevcut bir yönlendirme varsa yayın öncesinde düzeltin.
+3. `render.yaml`, `SITE_URL=https://www.profdrsemihotles.com.tr` değerini içerir. Mevcut servisin Environment bölümünde bu değeri kontrol edin. Build betiğinin varsayılan adresi de aynıdır. Ortam değişkeni yalnızca HTTPS origin olabilir; alt sayfa, query veya fragment içeremez.
+4. `node scripts/build-static.cjs`, canonical, Open Graph, Twitter ve `WebSite` / `ProfilePage` / `Person` JSON-LD verilerini aynı adresten üretir. `sitemap.xml` yalnızca gerçek ana sayfayı içerir; `#kariyer` gibi sayfa içi bağlantılar ayrı sayfa değildir. `robots.txt`, sitemap'e işaret eder.
+5. HTTPS ve DNS çalıştıktan sonra Google Search Console'da alan adını doğrulayın, `/sitemap.xml` gönderin ve ana sayfa için URL Denetimi yapın. Ayrıntılar: [SEO uygulaması ve yayın sonrası adımlar](seo.md).
+6. Alan adı değişirse Render `SITE_URL` değerini, build varsayılanını ve ilgili belgeleri birlikte güncelleyin. `siteUrl: ''` ile yalnızca yerel testlerde mutlak URL metadata'sı kapatılabilir.
 
 ## Yayın paketi ve içerik güncelleme
 
@@ -59,6 +52,7 @@ Alan adı henüz satın alınmış veya müsaitliği doğrulanmış değildir. �
 - Yeni görselleri bu üç görsel klasöründen birine koyup sayfada kullanabilirsiniz. JPG, JPEG, PNG, SVG, WebP, AVIF, GIF ve ICO desteklenir. Büyük fotoğrafları web için boyutlandırın; fotoğraflarda WebP/AVIF tercih edilebilir. Yeni bir görsel klasörü eklenirse build listesi de güncellenmelidir.
 - Dosya adlarının büyük/küçük harfleri referanslarla tam eşleşmelidir; Render Linux üzerinde çalışır. Mevcut kitap ve bölüm kapakları için bu kontrol testte yapılır.
 - Yeni bir kök JS/CSS dosyası eklenirse `scripts/build-static.cjs` içindeki yayın listesine ekleyin. HTML'in işaret ettiği yerel dosya listede yoksa build hata verir.
+- Eğitim, araştırma alanları, görevler, üyelikler, ödüller ve projeler build sırasında ilk HTML yanıtına yazılır. Tarayıcı betiği bu içeriğe arama, filtreleme ve sayfalama ekler. Görünümün ortak kaynağı `academic-profile-renderer.js` dosyasıdır.
 - Akademik veriler mevcut doğrulanmış JS dosyalarında kalır. Kaynak Excel/Word güncellenince veri kontrol edilip dosyalar değiştirilir; Git geçmişi önceki sürüme dönüş sağlar.
 - Yayın listesi `js/yayinlar` dosyasından okunur. Uzantısız dosyanın UTF-8 metin olarak sunulması Blueprint'te ayarlanmıştır.
 - Sayfa içi bölüm bağlantıları hash (`#...`) kullanır. Her bilinmeyen adresi ana sayfaya yönlendiren SPA rewrite kuralı gerekmez; hatalı dosya adresleri gerçek 404 döndürmelidir.
@@ -77,7 +71,7 @@ python -m http.server 8001 --directory dist
 Son komut çalışırken `http://localhost:8001/` üzerinden gerçek yayın paketini kontrol edin. Mevcut `http://localhost:8000/` geliştirme sunucusu kullanılmaya devam edilebilir. Özel domainli build kontrolü için:
 
 ```powershell
-$env:SITE_URL = 'https://profdrsemihotles.com.tr'
+$env:SITE_URL = 'https://www.profdrsemihotles.com.tr'
 node scripts/build-static.cjs
 Remove-Item Env:SITE_URL
 ```
